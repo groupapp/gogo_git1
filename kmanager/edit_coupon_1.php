@@ -1,0 +1,265 @@
+<?php
+
+
+require_once("../include/function.php");
+$DB = new myDB;
+$DBi = new myDB;
+$contact_id			= empty($_REQUEST["contact_id"])		? null : $_REQUEST["contact_id"];
+$mcontact_id			= empty($_REQUEST["mcontact_id"])		? null : $_REQUEST["mcontact_id"];
+
+//echo $mcontact_id;
+/*
+$error					= false;
+
+$absolutedir			= dirname(__FILE__);
+$dir					= '/tmp/';
+$serverdir				= $absolutedir.$dir;
+
+
+
+$filename				= array();
+
+
+
+foreach($_FILES as $name => $value) {
+	if(!empty($_POST[$name.'_values']))
+	{
+		$json					= json_decode($_POST[$name.'_values']);
+
+		$tmp					= explode(',',$json->data);
+		$imgdata 				= base64_decode($tmp[1]);
+		
+		$extension				= strtolower(end(explode('.',$json->name)));
+		$fname					= substr($json->name,0,-(strlen($extension) + 1)).'.'.substr(sha1(time()),0,6).'.'.$extension;
+		
+		
+		
+		
+		$rfname					= substr($json->name,0,-(strlen($extension) + 1)).'.'.$extension;
+			
+		
+		$handle					= fopen($serverdir.$fname,'w');
+		fwrite($handle, $imgdata);
+		fclose($handle);
+
+
+		$strSQLi = "UPDATE contacts SET img= \"".$fname."\"
+						WHERE contact_id=".$json->alt;					
+						
+		
+			$DBi->query($strSQLi);
+
+		
+		$filename[]				= $fname;
+		$rfilename[]				= $rfname;
+		
+		
+	}
+}
+*/
+
+
+
+
+?>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>gogo</title>
+  
+    <!-- Bootstrap -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/demo.html5imageupload.css?v1.3" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    
+	<div class="container">
+	  <div class="row">
+	    <div class="col-xs-12">
+		  <form enctype="multipart/form-data" action="salecoupon.php" method="post" role="form">
+		  <input type="hidden" name="contact_id" value="<?php echo $contact_id?>">
+		  <input type="hidden" name="mcontact_id" value="<?php echo $mcontact_id?>">
+		 <input type="hidden" name="action" value="step2">
+		  <input type="hidden" name="menu" value="1">
+		   <input type="hidden" name="view" value="1">
+		    <input type="hidden" name="uploadchk" value="1">
+
+			
+
+
+		  <div class="form-group">
+			<?php 
+			
+			if($contact_id>0)
+			{
+				$strSQL = "SELECT * FROM 1contacts WHERE contact_id=".$contact_id;
+			
+				$DB->query($strSQL);
+				while ($data = $DB->fetch_array($DB->res)){			
+					echo '<div  class="dropzone smalltext smalltools"  data-ajax="false"  data-width="200"  data-height="200" data-editstart="true" data-dimensionsonly="true" data-removeurl="/kmanager/del.php" data-image="data:image;base64,'.$data['rimg'].'" data-url="canvas.php" data-originalsize="false" data-ghost="false"   data-originalsave="false"     style="width: 200px; height:200px;float:left;">
+					  <input type="file" name="thumb'.$data['contact_id'].'"  alt="'.$data['contact_id'].'" value="'.$data['contact_id'].'"/>			   
+					</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Category</label>
+						<input type="text" name="category" class="form-control" value="'.$data['category'].'"/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Name</label>
+						<input type="text" name="name_e" class="form-control" value="'.$data['name'].'"/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Name1</label>
+						<input type="text" name="name_k" class="form-control" value="'.$data['name'].'"/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Name1</label>
+						<input type="text" name="name_s" class="form-control" value="'.$data['name'].'"/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Name1</label>
+						<input type="text" name="name_c" class="form-control" value="'.$data['name'].'"/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Unit</label>
+						<input type="text" name="unit" class="form-control" value="'.$data['unit'].'"/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">QTY</label>
+						<input type="text" name="qty" class="form-control" value="'.$data['qty'].'"/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Price</label>
+						<input type="text" name="price" class="form-control" value="'.$data['price'].'"/>
+						</div>';
+					echo '<div class="col-xs-3">
+						<label for="name">Description</label>
+						<input type="text" name="description" class="form-control" value="'.$data['description'].'"/>
+						</div>';
+				}
+			}
+			else
+			{
+				echo '<div  class="dropzone smalltext smalltools"  data-ajax="false"  data-width="200"  data-height="200" data-editstart="true" data-dimensionsonly="true" data-removeurl="/kmanager/del.php" data-image="" data-url="canvas.php" data-originalsize="false" data-ghost="false"   data-originalsave="false"     style="width: 200px; height:200px;float:left;">
+					  <input type="file" name=""  alt="" value=""/>			   
+					</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Category</label>
+						<input type="text" name="category" class="form-control" value=""/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Name</label>
+						<input type="text" name="name_e" class="form-control" value=""/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Name1</label>
+						<input type="text" name="name_k" class="form-control" value=""/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Name1</label>
+						<input type="text" name="name_s" class="form-control" value=""/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Name1</label>
+						<input type="text" name="name_c" class="form-control" value=""/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Unit</label>
+						<input type="text" name="unit" class="form-control" value=""/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">QTY</label>
+						<input type="text" name="qty" class="form-control" value=""/>
+						</div>';
+					echo '<div class="col-xs-1">
+						<label for="name">Price</label>
+						<input type="text" name="price" class="form-control" value=""/>
+						</div>';
+					echo '<div class="col-xs-3">
+						<label for="name">Description</label>
+						<input type="text" name="description" class="form-control" value=""/>
+						</div>';
+				}
+
+					
+		  ?>
+		  </div>
+		  <div style="height:300px;"><span >&nbsp;</span></div>
+		  <div><button type="submit" class="btn btn-default">Submit</button></div>		  
+		  </form>
+	    </div>	  
+	</div>
+	
+	
+	
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+   
+	
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    
+    <script src="../../assets/js/html5imageupload.js?v1.4.3"></script>
+
+	<!-- jQuery Colorbox js/CSS ============================================================================================= -->
+		<script type="text/javascript" src="/js/jquery.colorbox-min.js"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery.colorbox.css">
+	
+	<script type="text/javascript">
+			$(document).ready(function(){
+				$('.ajax').colorbox();
+			});
+	</script>
+
+    
+    <script>
+    
+    $('#retrievingfilename').html5imageupload({
+    	onAfterProcessImage: function() {
+    		$('#filename').val($(this.element).data('name'));
+    	},
+    	onAfterCancel: function() {
+    		$('#filename').val('');
+    	}
+    	
+    });
+
+	$('#form1').html5imageupload({
+    	onAfterProcessImage: function() {
+    		$('#filename1').val($(this.element).data('name'));
+    	},
+    	onAfterCancel: function() {
+    		$('#filename1').val('');
+    	}
+    	
+    });
+    
+    $('#save').html5imageupload({
+    	onSave: function(data) {
+    		console.log(data);
+    	},
+    	
+    });
+    
+    $('.dropzone').html5imageupload();
+    
+    $( "#myModal" ).on('shown.bs.modal', function(){
+    	$('#modaldialog').html5imageupload();
+    });
+    
+    
+    </script>
+    
+  </body>
+</html>

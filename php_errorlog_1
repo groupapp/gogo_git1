@@ -1,0 +1,11 @@
+[06-Nov-2014 01:15:36 CST6CDT] PHP Parse error:  syntax error, unexpected ')' in /home/egcjc584/public_html/index.php on line 25
+[06-Nov-2014 01:15:48 CST6CDT] PHP Parse error:  syntax error, unexpected ')' in /home/egcjc584/public_html/index.php on line 25
+[18-Nov-2014 16:38:54 America/Los_Angeles] PHP Parse error:  syntax error, unexpected T_EXIT, expecting ',' or ';' in /home/egcjc584/public_html/contents/productpage.php on line 170
+[18-Nov-2014 17:39:27 America/Los_Angeles] PHP Parse error:  syntax error, unexpected T_IF in /home/egcjc584/public_html/contents/productpage.php on line 399
+[18-Nov-2014 18:40:50 America/Los_Angeles] PHP Parse error:  syntax error, unexpected '}' in /home/egcjc584/public_html/contents/productpage.php on line 652
+[22-Nov-2014 20:47:22 America/Los_Angeles] PHP Parse error:  syntax error, unexpected ';' in /home/egcjc584/public_html/contents/productpage.php on line 133
+[22-Nov-2014 22:46:07 America/Los_Angeles] PHP Parse error:  syntax error, unexpected ';' in /home/egcjc584/public_html/contents/productpage.php on line 379
+[22-Nov-2014 22:47:07 America/Los_Angeles] PHP Parse error:  syntax error, unexpected ';' in /home/egcjc584/public_html/contents/productpage.php on line 379
+[22-Nov-2014 22:49:00 America/Los_Angeles] PHP Parse error:  syntax error, unexpected ';' in /home/egcjc584/public_html/contents/productpage.php on line 379
+[22-Nov-2014 22:49:13 America/Los_Angeles] PHP Parse error:  syntax error, unexpected ';' in /home/egcjc584/public_html/contents/productpage.php on line 379
+[22-Nov-2014 22:50:04 America/Los_Angeles] PHP Parse error:  syntax error, unexpected ';' in /home/egcjc584/public_html/contents/productpage.php on line 379

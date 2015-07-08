@@ -1,0 +1,89 @@
+ <?php
+	$lang = array();
+	
+	if(isset($_SESSION["lang"]))
+		{
+			if($_SESSION["lang"]=='en')
+			{ $lang['about_us'] = 'About Us';
+				$lang['contact_us'] = 'Contact Us';
+				$lang['customer_service'] = 'Customer Service';
+				$lang['sign_in'] = 'Login';
+				$lang['view_cart'] = 'View Cart';
+			}
+        	else if($_SESSION["lang"]=='es')
+				  $lang_file = 'lang.es.php';
+               
+			else if($_SESSION["lang"]=='kr')
+			{
+			$lang['about_us'] = '회사소개';
+			$lang['contact_us'] = '연락처';
+			$lang['customer_service'] = '고객서비스';
+			$lang['sign_in'] = '로그인';
+			$lang['view_cart'] = '카트보기';
+
+print_r('eee'.$lang['sign_in']);
+			}	
+                 
+		}
+		include_once dirname(__FILE__) .'../languages/'.$lang_file;
+
+	
+?>
+
+                <div class="container-fluid background-color-7">
+                    
+                    
+                    <div class="footer container">
+                        <div class="padd-footer">
+                            <div class="wrapper">
+                                <div class="footer-col">
+                                    <h4>INFORMATION</h4>
+                                    <ul>
+                                        <li><a href="<?php echo SITE_URL;?>/?info=aboutus"><?php echo $lang['about_us']?></a>
+                                        <li><a href="<?php echo SITE_URL;?>/?info=contactus"><?php echo $lang['contact_us']?></a>
+                                        <li><a href="<?php echo SITE_URL;?>/?info=customerservice"><?php echo $lang['customer_service']?></a>
+                                        
+                                       
+                                    </ul>
+                                </div>
+                                
+                                <div class="footer-col-2">
+                                    <h4>MY ACCOUNT</h4>
+                                    <ul>
+                                        <li><a href="<?php echo SITE_URL;?>/?page=customer&account=login"><?php echo $lang['sign_in']?></a>
+                                        <li><a href="<?php echo SITE_URL;?>/?page=mycart"><?php echo $lang['view_cart']?></a>
+                                        <li><a href="<?php echo SITE_URL;?>/?info=mywishlist">My Coupon</a>
+                                       
+                                    </ul>
+                                </div>
+                                <div class="footer-col-3">
+                                    <h4>POLICY</h4>
+                                    <ul>
+                                        
+                                        <li><a href="<?php echo SITE_URL;?>/?info=privacypolicy">Privacy Policy </a>
+                                        <li><a href="<?php echo SITE_URL;?>/?info=returnpolicy">Return Policies  </a>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="padd-footer">
+
+                            <ul class="footer-logos">
+                                <li><a href="#" target="_blank"><img src="/images/v.png"/></a></li>
+                                <li><a href="#" target="_blank"><img src="/images/facebook.png"/></a></li>
+                                <li><a href="#" target="_blank"><img src="/images/twitter.png"/></a></li>
+                                <li><a href="#" target="_blank"><img src="/images/pintrest.png"/></a></li>
+                            </ul>
+                        </div>-->
+                        <p class="clear"></p>
+                        
+                        <div class="footer-copyright">
+                            <h1>&copy; 2015 gogomarket.net Online Store. All Rights Reserved.</h1>
+                        </div>
+                    </div>
+                    <!-- .footer CLOSE -->
+                </div>
+
+        
+    </body>
+</html>

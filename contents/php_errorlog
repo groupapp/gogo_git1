@@ -1,0 +1,22 @@
+[03-Sep-2014 21:01:01 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/searchterms.php on line 4
+[03-Sep-2014 21:06:55 CST6CDT] PHP Fatal error:  Call to undefined function print_array() in /home/egcjc584/public_html/contents/shoppingcart.php.bak on line 761
+[03-Sep-2014 21:25:15 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/aboutus.php on line 4
+[03-Sep-2014 21:42:57 CST6CDT] PHP Fatal error:  Class 'myDb' not found in /home/egcjc584/public_html/contents/_index.php on line 15
+[03-Sep-2014 21:44:02 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/retrieveaccount.php on line 5
+[19-Oct-2014 03:58:07 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/sizechart.php on line 6
+[19-Oct-2014 04:02:34 CST6CDT] PHP Parse error:  syntax error, unexpected $end in /home/egcjc584/public_html/contents/size_chart_temp.php on line 577
+[19-Oct-2014 04:14:32 CST6CDT] PHP Fatal error:  Call to undefined function print_array() in /home/egcjc584/public_html/contents/shoppingcart.php on line 761
+[19-Oct-2014 04:18:47 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/searchterms.php on line 4
+[19-Oct-2014 04:22:49 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/retrieveaccount.php on line 5
+[19-Oct-2014 04:31:12 CST6CDT] PHP Fatal error:  Call to a member function query() on a non-object in /home/egcjc584/public_html/contents/productpage_don.php on line 394
+[19-Oct-2014 04:35:15 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/productpage.php on line 587
+[19-Oct-2014 04:39:16 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/productlist.php on line 2
+[19-Oct-2014 04:47:22 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/policies.php on line 3
+[19-Oct-2014 05:20:12 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/myaccount.php on line 13
+[19-Oct-2014 05:53:00 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/customerservice.php on line 4
+[19-Oct-2014 05:57:17 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/contactus.php on line 5
+[19-Oct-2014 06:05:17 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/categorypage.php on line 2
+[19-Oct-2014 06:09:26 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/buyfromus.php on line 4
+[19-Oct-2014 06:21:50 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/aboutus.php on line 4
+[19-Oct-2014 06:25:58 CST6CDT] PHP Fatal error:  Class 'myDb' not found in /home/egcjc584/public_html/contents/_index.php on line 15
+[25-Nov-2014 00:26:54 CST6CDT] PHP Fatal error:  Class 'myDB' not found in /home/egcjc584/public_html/contents/categorypage.php on line 2

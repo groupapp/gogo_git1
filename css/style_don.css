@@ -1,0 +1,30 @@
+.subject1_3{
+	padding: 5px 5px 5px 10px;
+	text-align: center;
+	font: bold 11px/1.5 Verdana, Helvetica;
+    color: #fff;
+    background-color: #B8B8B8;
+}
+.opc .step-title7 { padding:11px 25px 14px;  text-align:right;background:url(/images/tail-check-li.gif) left  bottom  repeat-x #fff; }
+.opc .active .step-title7 { cursor:default;border-radius:4px;background:url(/images/tail-check-l-act.gif) left  top  repeat-x #333333; }
+.opc .active { }
+.opc .active .step-title7 { cursor:default;color: white;border-radius:4px;background:url(/images/tail-check-l-act.gif) left  top  repeat-x #333333; }
+.opc .active .step-title7 .number { background:#fcfcfc; border:1px solid #fcfcfc; border-radius:2px; color:#2d2d2d;}
+.opc .active .step-title7 h2 { color:#fff;}
+.opc .step-title7 { padding:11px 25px 14px; text-align:right;background:url(/images/tail-check-li.gif) left  bottom  repeat-x #fff; }
+.opc .step-title7 .number { float:left; line-height:18px; font-weight:bold; margin-right:10px;  border:1px solid #313131; color:#ececec; height:18px; width:18px; text-align:center; border-radius:2px; background:#313131; }
+.opc .step-title7 h2 { float:left; font-weight:bold; color:#000000; font-size:12px; margin-bottom:0; padding-top:3px; }
+.opc .step-title7 a { display:none; float:right; }
+.opc .allow .step-title7 { cursor:pointer; }
+
+.generalD{
+	padding: 5px 5px 5px 10px;
+	font: normal 12px/1.4 Verdana, Tahoma;
+	text-align:center;
+}
+
+.btn-remove3 { display: block; width: 36px; height: 38px; font-size: 0; cursor: pointer; line-height: 0; background: url("/images/ico_delete.png") 0 0 no-repeat; text-indent: -999em; overflow: hidden; }
+.btn-remove3:hover { background-position: 0 -67px !important; }
+input.per { width: 315px; }
+input.per1 { width: 315px; }
+input.per2 { margin-left: 30px;margin-bottom: 10px; }

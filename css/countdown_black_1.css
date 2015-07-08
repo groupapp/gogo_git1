@@ -1,0 +1,15 @@
+/* Countdown Clock
+------------------------------------------------------------ */
+
+#countdown_dashboard { width: 250px; height: 190px; padding: 0px 0 10px 10px; margin: 0 ; background: url(/images/countdown_clock_bg.jpg) 0 0 no-repeat; }
+.dash { width: 65px; height: 50px; float: left; margin-left: 2px; padding-left: 10px; margin-top: 0px; padding-top: 0; position: relative; color:  #333; }
+.clock_title { padding-top: 34px; height: 60px; font-size: 18px; font-weight: bold; }
+.cdown_clock {}
+.weeks_dash { background: transparent url('/images/dark_weeks_dash.png') 0 0 no-repeat; }
+.days_dash { background: transparent url('/images/dark_days_dash.png') 0 0 no-repeat; }
+.hours_dash { clear: left; background: transparent url('/images/dark_hours_dash.png') 0 0 no-repeat; }
+.minutes_dash { background: transparent url('/images/dark_minutes_dash.png') 0 0 no-repeat; }
+.seconds_dash { background: transparent url('/images/dark_seconds_dash.png') 0 0 no-repeat; }
+.dash .digit { font: bold 30pt/0.9em Verdana; font-weight: bold; margin-top: 8px; margin-left: 1px; float: left; width: 31px; text-align: center; position: relative; }
+.dash .digit div { font: bold 30pt/0.9em Verdana; font-weight: bold; } /* margin-top: 8px; float: left; width: 31px; text-align: center; position: relative; } */
+.dash_title { display: none; }
