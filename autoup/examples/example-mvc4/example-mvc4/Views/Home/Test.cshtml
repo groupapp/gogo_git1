@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Test";
+}
+
+<input type="file" id="alim" name="alim" />
+
+
+<script>
+    var file_input = document.getElementById("alim");
+    file_input.addEventListener('change', handleFilesWithInput, false);
+
+    function handleFilesWithInput(event) {
+        console.log("started")
+
+        for (var index in event.target.files) {
+            if (typeof event.target.files[index] == 'object') {
+                var reader = new FileReader();
+
+                console.log("started")
+                reader.onload = function (file) {
+                    console.log(file)
+                }
+                console.log("started")
+                var f = event.target.files[index].slice(1, 2);
+                console.log(f);
+                reader.readAsArrayBuffer(f);
+            }
+        }
+    }
+
+</script>

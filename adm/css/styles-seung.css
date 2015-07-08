@@ -1,0 +1,78 @@
+@charset "utf-8";
+/* CSS Document */
+
+.slide-image-left{
+	
+	float: left;
+
+	margin-right: 21px;
+	margin-top: 0px;
+	
+}
+
+
+#slides div h2 span{
+	
+	font-size: 1.3em;	
+	
+}
+
+
+.topheader{
+/*	
+	background-image: url(../images/servers2.jpg);
+	background-position-y: -246px;
+	background-repeat: no-repeat;
+	background-size: cover;
+*/
+}
+
+
+
+.abox{
+	margin-left: 9px;
+    background: linear-gradient(#E378A8, #FF006C);
+	background-color: #FF006C;
+    color: #FFFFFF;
+    display: inline-block;
+    /*font-weight: bold;*/
+    padding: 8px 15px;
+	border: none;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+
+.abox span{
+	
+	font-size: 0.6em;
+	line-height: 0.8em;
+	
+}
+
+
+
+.floating-box{
+	
+	display: none;
+	/*box-shadow: 0 0 15px 2px rgba(0,0,0,0.5);*/
+	margin-top: 10px;
+	top: 20px;
+	right: 20px;
+	background: linear-gradient(#E378A8, #FF006C) !important;
+	padding: 20px;
+	color: #FFF;
+	z-index: 999;
+	
+	
+}
+
+
+.logo-small{
+	
+	font-size: 0.28em;	
+
+	
+	
+}
+

@@ -1,0 +1,964 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Pure &middot; Uploader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/jquery.gritter.css" rel="stylesheet" />
+    <link href="assets/google-code-prettify/prettify.css" rel="stylesheet" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+                                                                                                                                                  <script src="assets/js/html5shiv.js"></script>
+                                                                                                                                                <![endif]-->
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        /*@media (max-width: 980px) {
+                          /* Enable use of floated navbar text */
+        /*.navbar-text.pull-right {
+                            float: none;
+                            padding-left: 5px;
+                            padding-right: 5px;
+                          }
+                        }*/
+        .sidebar-nav-fixed {
+            position: fixed;
+            right: 0px;
+            top: 60px;
+            width: 17.97%;
+        }
+
+        @media (max-width: 767px) {
+            .sidebar-nav-fixed {
+                width: auto;
+            }
+        }
+
+        @media (max-width: 979px) {
+            .sidebar-nav-fixed {
+                position: static;
+                width: auto;
+            }
+        }
+    </style>
+
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet" />
+</head>
+<body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">Pure Uploader</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li class="active"><a href="pureuploader.10oy.com">Home</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span9">
+                <section id="top">
+                    <div class="hero-unit">
+                        <h1>Uploader v3.0!</h1>
+                        <p>Thanks for Purchasing Our Uploader Plugin.</p>
+                    </div>
+                </section>
+
+            </div><!--/span-->
+            <div class="span3">
+                <div class="bs-docs-sidebar">
+                    <ul class="nav nav-list bs-docs-sidenav sidebar-nav-fixed well">
+                        <li class="nav-header">General</li>
+                        <li class="active"><a href="#general-overview">1.1 - Overview</a></li>
+                        <li><a href="#features">1.2 - Features</a></li>
+                        <li><a href="#installation">1.3 - Installation</a></li>
+                        <li><a href="#customizable">1.4 - Customizable & Examples</a></li>
+                        <li class="nav-header">Plugin</li>
+                        <li><a href="#variables">2.1 - Variables</a></li>
+                        <li><a href="#functions">2.2 - Functions</a></li>
+                        <li><a href="#template">2.3 - Template</a></li>
+                        <li><a href="#infos">2.4 - Informations</a></li>
+                        <li class="nav-header">Server-Side</li>
+                        <li><a href="#server-overview">3.1 - Overview</a></li>
+                        <li><a href="#aspnet">3.2 - Asp.NET</a></li>
+                        <li><a href="#php">3.3 - PHP</a></li>
+                        <li class="nav-header">End</li>
+                        <li><a href="#end">4.1 - End of documation</a></li>
+                    </ul>
+                </div><!--/.well -->
+            </div><!--/span-->
+            <div class="span9">
+                <section id="general-overview" class="well">
+                    <a href="#top" class="btn pull-right">Top</a>
+                    <h3>1.1 - Overview</h3>
+                    <p>This plugin has developed by tQera team. The plugin is pure javascript, no JS frameworks used so you can use any JS framework with this plugin without any problems! </p>
+                    <p>Also you can customize the plugin as you want, we provided more than 15 options.</p>
+                    <p>We will keep updating that plugin whenever we can.</p>
+
+                    <a href="http://codecanyon.net/user/lyzerk" class="btn btn-large btn-success">Check our other products</a>
+                    <a href="http://pureuploader.10oy.com" class="btn btn-large btn-success">Visit our site</a>
+                </section>
+                <hr>
+            </div>
+            <div class="span9">
+                <section id="features" class="well">
+                    <a href="#top" class="btn pull-right">Top</a>
+                    <h3>1.2 - Features</h3>
+                    <p>We tried to provide all options we possibly could</p>
+                    <ol>
+                        <li>Drag & Drop Files</li>
+                        <li>Upload for all file types</li>
+                        <li>File Filter</li>
+                        <li>Icons For Types</li>
+                        <li>File Size Limit</li>
+                        <li>Progress Bar</li>
+                        <li>Upload Limit</li>
+                        <li>Thumbnail For Images</li>
+                        <li>Adjustable Thumbnail Resolution</li>
+                        <li>Adjustable classes</li>
+                        <li>Oldschool upload when HTML5 aren't supported</li>
+                        <li>Auto Upload</li>
+                        <li>Image Resize</li>
+                        <li>Image Aspect Ratio</li>
+                        <li>Watermark Text & Image for Images</li>
+                        <li>Template <code>new</code></li>
+                        <li>Chunk upload <code>new</code></li>
+                        <li>New functions(start, pause, remove, isworking, find) <code>new</code></li>
+                        <li>Large file upload <code>new</code></li>
+                        <li>Image preparing <code>new</code></li>
+                        <li>More Functions</li>
+                    </ol>
+
+                    <h2>Updates</h2>
+
+                    <strong>30.01.2015</strong>
+                    <ol>
+                        <li>Added template system</li>
+                        <li>Added chunk upload</li>
+                        <li>Added preparing of image part.</li>
+                        <li>Added new functions (start, pause, remove, isworking, find)</li>
+                        <li>Added icon file extension.</li>
+                        <li>Large file upload is working(only with chunk).</li>
+                        <li>Demo page updateded.</li>
+                        <li>MVC4 is working with last version of plugin. (PHP and WebForm will update soon too.)</li>
+                        <li>Http protocol bug fixed.</li>
+                        <li>File filter fixed.</li>
+                        <li>Error function of plugin is more organized now.</li>
+                    </ol>
+
+                    <strong>27.07.2014</strong>
+                    <ol>
+                        <li>Bugs fixed</li>
+                        <li>I test mobile of plugin on WP 8.1 / Android 4.4.4. And it work.</li>
+                    </ol>
+
+                    <strong>03.05.2014</strong>
+                    <ol>
+                        <li>Added gif support</li>
+                        <li>Added new function 'beforeSend'</li>
+                        <li>Fixed Bugs </li>
+                    </ol>
+
+                    <strong>24.04.2014</strong>
+                    <ol>
+                        <li>Alot of bugs fixed</li>
+                        <li>Added Watermark with image.</li>
+                        <li>Added Auto Upload </li>
+                        <li>Icons improved</li>
+                        <li>Image Resize & Aspect Ratio improved</li>
+                        <li>Demo page is improved. More examples</li>
+                    </ol>
+                    <strong>09.08.2013</strong>
+                    <ol>
+                        <li>Added aspect ratio(thumbnail) to php example</li>
+                        <li>Added aspect ratio feature.</li>
+                    </ol>
+
+                    <strong>04.05.2013</strong>
+                    <ol>
+                        <li>Php Example improved</li>
+                        <li>Image width & height rule</li>
+                    </ol>
+
+                    <strong>14.04.2013</strong>
+                    <ol>
+                        <li>Resize Image</li>
+                        <li>Php Example</li>
+                    </ol>
+
+                </section>
+                <hr>
+            </div>
+
+            <div class="span9">
+                <section id="installation" class="well">
+                    <a href="#top" class="btn pull-right">Top</a>
+                    <h3>1.3 - Getting Started & Installation</h3>
+                    <p>There is only one js file that is required to include. 10kb</p>
+                    <p>It's really easy to implement and lightweight!</p>
+                    <p>
+                        For basic implementation of our plugin, <br>
+                        Firstly, you need to add the "Pure.Uploader.js" file
+                        and the Pure.Uploader.Basic.css to the &lt;head&gt; section
+                    </p>
+                    <pre class="prettyprint linenums">
+						
+&lt;script type="text/javascript" src="Pure.Uploader.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" type="text/css" href="Pure.Uploader.Basic.css" /&gt;
+                        </pre>
+                    Secondly, you need the HTML elements that our plugin needs,<br>
+                    careful about the IDs, you are going to need these to identify these elements to our plugin
+                    <pre class="prettyprint linenums">
+						
+	&lt;form id="dropper"&gt;
+            Pick some files 
+            &lt;input type="file" name="fileInput" id="fileInput" multiple /&gt;
+            or drop some here &dArr;
+            &lt;div id="dropPlace"&gt;&lt;/div&gt;
+            &lt;button type="submit"&gt;Start Upload&lt;/button&gt;
+            &lt;div id="imageHolder"&gt;&lt;/div&gt;
+        &lt;/form&gt;
+						</pre>
+                    Lastly, you need to initialize our plugin with the settings you need
+                    <pre class="prettyprint linenums">
+						
+&lt;script type="text/javascript"&gt;
+        var d = new PureUploader(
+        {
+            drop: true, // to support drag&drop
+            form: document.getElementById("dropper"), // the form element's id
+            fileInput: document.getElementById("fileInput"), // the file type input's id
+            imageHolder: document.getElementById("imageHolder"), // the div's id for listing of uploading files
+            dropPlace: document.getElementById("dropPlace"), // the div's id that images gonna drop onto
+            dragHoverClass: "drop_hover", // when the state of hover of the dropPlace div this class would approved
+	// Thumbnail resolutions will being used in listing of uploads and thumbnails that would create if the setting is on
+                image: {
+                    thumb: true, //active thumbnail
+                    thumb_width: 200, //thumbnail width
+                    thumb_height: 200, //thumbnail height
+                    resize_width: 0, //image resize width
+                    resize_height: 0, //image resize height
+                    keep_aspect_ratio: true //image resize aspect ratio
+                },
+	// File filter that which files do you want to uploaded with this plugin enter these like this png|jpg|rar|doc etc...
+	// If this is empty (""), this means you allow all the file types
+            file_filter: "",
+            
+	// Ajax settings
+	// url : the url of the ajax request would send, clearAfterUpload : a boolean setting that for if you want to clear items after the upload process
+            ajax: {
+                url: '/Home/Receive/',
+                clearAfterUpload: true
+            },
+			
+	// Watermark settings, if you don't want to watermark images leave it, if you do see watermark settings	see downside	
+            watermark: {
+                watermark: false
+            },
+        //Icon Properties for files
+            icon: { 
+                icon : true, //active icons
+                path: "/images/icons", //icons path
+                _default: "/images/icons/_blank.png", //default icon for not supported files types
+                width: 128, //Icon width
+                height: 128 //Icon height
+            },
+        //Auto upload
+	        auto_upload:false,
+	// HTML5Error event to handle when the browser doesn't support HTML5 like File API and Drag&Drop features that plugin needs let the user know by this
+	// and will use simple uploading system instead of HTML5 one
+            html5Error:
+                function (uploader) {
+                    uploader.settings.imageHolder.style.display = "none";
+                    uploader.settings.dropPlace.style.display = "none";
+                    var error = document.createElement("p");
+                    error.className = "text-center";
+                    error.appendChild(document.createTextNode("Your browser doesn't support HTML5, we can offer you a new browser from here ! click!"));
+                    uploader.settings.form.appendChild(error);
+                },
+				
+	// Progress event: this one retrieves the progress of each item that is being uploaded to show the progress
+            progress:
+                         function (data) {
+                             var template = document.getElementById(data.template); // to access each individual item, required.
+                             if (template) {
+                                 var progress = document.getElementById("progress_" + data.template); // to access and manipulate the progress of each individual, required.
+				//from this state you can customize below to fit your needs
+                                 if (progress) {
+                                     progress.innerText = "%" + data.percent;
+                                 }
+                                 else {
+                                     var div = document.createElement("div");
+                                     div.id = "progress_" + data.template;
+                                     div.innerText = "%" + data.percent;
+                                     template.appendChild(div);
+                                 }
+                             }
+                         }
+        });
+    &lt;/script&gt;
+						
+						</pre>
+                    Done for basic version
+                    <h4>Wanna Twitter Bootstrap version Progress bars?</h4>
+                    Repace the css file with
+                    <pre class="prettyprint linenums">tQera.Uploader.Bootstrap.css</pre>
+                    Replace the <i>"progress" event </i> with this code snippet
+                    <pre class="prettyprint linenums">
+		progress:
+                 function (data) {
+                     
+                         var template = document.getElementById(data.template);
+                         if (template) {
+                             var progress = document.getElementById("progress_" + data.template);
+                             if (progress) {
+                                 progress.style.width = data.percent + "%";
+                                 
+                             }
+                             else {
+                                 var div = document.createElement("div");
+                                 div.className = "progress progress-striped active";
+                                 progress = document.createElement("div");
+                                 progress.id = "progress_" + data.template;
+                                 progress.className = "bar";
+                                 progress.style.width = data.percent + "%";
+                                 div.appendChild(progress);
+                                 template.appendChild(div);
+                             }
+                         }
+                 },
+						</pre>
+                </section>
+                <hr>
+            </div>
+            <div class="span9">
+                <section id="customizable" class="well">
+                    <a href="#top" class="btn pull-right">Top</a>
+                    <h3>1.4 - Customizable & Examples</h3>
+
+                    <h5>File Filter & Size & Upload Limit</h5>
+                    <pre class="prettyprint linenums">
+{
+    file_filter: "image|text", // {string} split with '|' to put your whitelist file types
+    file_size: 150000000, // {int} in bytes 150000000 = 15MB
+    limit: 5 // {int} how many files can be uploaded (0 = unlimited)
+}
+                        </pre>
+                    <h5>Thumbnail</h5>
+                    <pre class="prettyprint linenums">
+{
+    image_tumb: true, // {boolean} thumbnail creation 
+    image_tumb_width: 300, // {int} width for thumbnail
+    image_tumb_height: 300, // {int} height for thumbnail
+}
+                        </pre>
+                    <h5>Watermark</h5>
+                    <pre class="prettyprint linenums">
+{
+    watermark: { 
+        watermark:true, //active watermark
+        image : "", //url of image like /images/watermark.png
+        image_aspect_ratio: true, //If its true watermark image will keep aspect ratio of current image
+        text: "www.tqera.com", // {string} Text
+        color: "grey", // {string} string or hex format like css "Gray, White", #000, #fff, #9e9e9e"
+        alpha: 0.7, // {double} Alpha value between 0 and 1
+        font_size: "55px", // {string} font-size like css "px" or "em" format "55px, 1em, 10px"
+        font: "bold sans-serif", // {string} font type
+        position: "mid center" // {string} position value vertical:top,center,bottom and horizantal:left,mid,right
+    }
+}
+                        </pre>
+                </section>
+                <hr>
+            </div>
+
+            <div class="span9">
+                <section id="variables" class="well">
+                    <h3>2.1 - Variables</h3>
+
+                    <h5>Variables</h5>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Description</th>
+                                <th>Default Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>name<code>new important</code></td>
+                                <td>{string} uploader name (you will need after v3)</td>
+                                <td><code>uploader</code></td>
+                            </tr>
+                            <tr>
+                                <td>tempalate<code>new important</code></td>
+                                <td>{string} new template system for each item, you are more free than ever.</td>
+                                <td><a href="#template">Go to template section</a></td>
+                            </tr>
+                            <tr>
+                                <td>drop</td>
+                                <td>{boolean} Enable, Disable for drag&drop feature</td>
+                                <td><code>true</code></td>
+                            </tr>
+                            <tr>
+                                <td>file_filter</td>
+                                <td>{string} split with '|' to put your whitelist file types (set empty for enable all types) <code>image|text</code></td>
+                                <td><code>""</code></td>
+                            </tr>
+                            <tr>
+                                <td>file_size</td>
+                                <td>{int} in bytes for limiting maximum upload per file</td>
+                                <td><code>100000000</code></td>
+                            </tr>
+                            <tr>
+                                <td>limit</td>
+                                <td>{int} how many files can be uploaded, 0 = unlimited</td>
+                                <td><code>0</code></td>
+                            </tr>
+                            <tr>
+                                <td>debug</td>
+                                <td>{boolean} when true, errors would show on Console.Log</td>
+                                <td><code>false</code></td>
+                            </tr>
+                            <tr>
+                                <td>Auto Upload</td>
+                                <td>{boolean} when true, auto upload images without button.</td>
+                                <td><code>false</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h5>Variables - Images</h5>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>thumb</td>
+                            <td>{boolean} Enable, Disable for thumbnail image</td>
+                            <td><code>true</code></td>
+                        </tr>
+                        <tr>
+                            <td>thumb_width</td>
+                            <td>{int} Thumbnail width</td>
+                            <td><code>200</code></td>
+                        </tr>
+                        <tr>
+                            <td>thumb_height</td>
+                            <td>{int} Thumbnail height</td>
+                            <td><code>200</code></td>
+                        </tr>
+                        <tr>
+                            <td>resize_width</td>
+                            <td>{int} Image resize width, set 0 for orginal size of image</td>
+                            <td><code>0</code></td>
+                        </tr>
+                        <tr>
+                            <td>resize_height</td>
+                            <td>{int} Image resize height, set 0 for orginal size of image</td>
+                            <td><code>0</code></td>
+                        </tr>
+                        <tr>
+                            <td>keep_aspect_ratio</td>
+                            <td>{boolean} Keep aspect ratio of image</td>
+                            <td><code>false</code></td>
+                        </tr>
+                        <tr>
+                            <td>preparing</td>
+                            <td>{string:URL} preparing image before the icon or the thumbnail</td>
+                            <td><code>preparing.png</code></td>
+                        </tr>
+                    </table>
+
+                    <h5>Variables - Icons</h5>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Description</th>
+                                <th>Default Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>icon</td>
+                                <td>{boolean} Enable / disable icons. </td>
+                                <td><code>true</code></td>
+                            </tr>
+                            <tr>
+                                <td>path</td>
+                                <td>{string} Your icon path for files extensions, like on our example. (rar.png,css.png) </td>
+                                <td><code>/images/icons</code></td>
+                            </tr>
+                            <tr>
+                                <td>_default</td>
+                                <td>{string} Your default icon for unsupported types</td>
+                                <td><code>/images/icons/_blank.png</code></td>
+                            </tr>
+                            <tr>
+                                <td>width</td>
+                                <td>{int} Icon width</td>
+                                <td><code>128</code></td>
+                            </tr>
+                            <tr>
+                                <td>height</td>
+                                <td>{int} Icon height</td>
+                                <td><code>128</code></td>
+                            </tr>
+                            <tr>
+                                <td>extension <code>new important</code></td>
+                                <td>{string} Icon files extension.</td>
+                                <td><code>.png</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h5>Variables - Ajax</h5>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Description</th>
+                                <th>Default Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>url</td>
+                                <td>{string:Url} Url for Ajax Request</td>
+                                <td><code>null</code></td>
+                            </tr>
+                            <tr>
+                                <td>clearAfterUpload</td>
+                                <td>{boolean} Clear files from imageholder when upload has completed</td>
+                                <td><code>true</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h5>Variables - Watermark</h5>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Description</th>
+                                <th>Default Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>watermark</td>
+                                <td>{boolean} Enable / Disable icons</td>
+                                <td><code>true</code></td>
+                            </tr>
+                            <tr>
+                                <td>text</td>
+                                <td>{string} Watermark's text</td>
+                                <td><code>www.example.com</code></td>
+                            </tr>
+                            <tr>
+                                <td>color</td>
+                                <td>{string} Color of watermark ( Hex or String format like CSS )</td>
+                                <td><code>grey / #9e9e9e</code></td>
+                            </tr>
+                            <tr>
+                                <td>alpha</td>
+                                <td>{double} Alpha of watermark (0~1)</td>
+                                <td><code>0.7</code></td>
+                            </tr>
+                            <tr>
+                                <td>font</td>
+                                <td>{string} Font of watermark text</td>
+                                <td><code>bold sans-serif</code></td>
+                            </tr>
+                            <tr>
+                                <td>position</td>
+                                <td>{string} position value vertical:top,center,bottom and horizantal:left,mid,right</td>
+                                <td><code>bottom right</code></td>
+                            </tr>
+
+                            <tr>
+                                <td>image</td>
+                                <td>{string} image path of watermark image</td>
+                                <td><code>""</code></td>
+                            </tr>
+                            <tr>
+                                <td>image_aspect_ratio</td>
+                                <td>{boolean} If its true watermark image will keep aspect ratio of current image</td>
+                                <td><code>false</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h5>Variables - Chunk</h5>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Description</th>
+                                <th>Default Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>active</td>
+                                <td>{boolean} Enable / Disable chunk</td>
+                                <td><code>true</code></td>
+                            </tr>
+                            <tr>
+                                <td>size</td>
+                                <td>{int} Each chunk size in bytes</td>
+                                <td><code>1 * 1024 * 1024</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h5>Elements</h5>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Description</th>
+                                <th>Default Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>form</td>
+                                <td>{DOM} [required] Form Element</td>
+                                <td><code>document.getElementById("imageForm")</code></td>
+                            </tr>
+                            <tr>
+                                <td>dropPlace</td>
+                                <td>{DOM} [required] Drop-area Element</td>
+                                <td><code>document.getElementById("dropPlace")</code></td>
+                            </tr>
+                            <tr>
+                                <td>imageHolder</td>
+                                <td>{DOM} [required] Container element for thumbnail gallery</td>
+                                <td><code>document.getElementById("imageHolder")</code></td>
+                            </tr>
+                            <tr>
+                                <td>file_input</td>
+                                <td>{Form Element} The input which type is file</td>
+                                <td><code>document.getElementById("fileInput")</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h5>Variables - Classes</h5>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Description</th>
+                                <th>Default Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>dragHoverClass</td>
+                                <td>{CSS Class} When start dragging to drop place, drop place gonna add this attribute</td>
+                                <td><code>hover</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h5>Errors<code>new important</code></h5>
+                    <pre>
+                        
+    errors: {
+        INIT_DROP: 'Drop Place can not initialize',
+        INIT_IMG_HOLDER: 'Image Holder can not initialize',
+        INIT_IMG_THUMB: 'Image Properties (thumb, width, height) can not initialize',
+        INIT_FILE_INPUT: 'File Input can not initialize',
+        INIT_FILE_FILTER: 'File Filter can not initialize',
+        INIT_FILE_SIZE: 'File Size can not initialize',
+        INIT_FILE_FORM: 'File Form can not initialize',
+        INIT_TEMPLATE: 'Your template content has not exist {image} tag',
+        INIT_WATERMARK_IMAGE: 'Watermark image can not initialize, watermark text will be on',
+        THUMB_SIZE: 'Thumbnail must be higher than 10x10',
+        THUMB_PROCESS : 'Something weird happened in thumbnail process',
+        FILE_SIZE_INT: 'File size must be integer',
+        UPLOAD_LIMIT: 'Upload limit is {limit}',
+        FILE_SIZE_LARGER: 'File size too larger',
+        FILE_DOESNT_SUPPORT: 'File does not support',
+        TEMPLATE_CREATE : 'Something weird happened in create of template, please check for details.',
+        NETWORK: 'Network error, please check for details.',
+        FIND_ITEM : 'There is no item for this id : {id}'
+    }
+                    </pre>
+
+                </section>
+                <hr>
+            </div>
+            <div class="span9">
+                <section id="functions" class="well">
+                    <h3>2.2 - Functions</h3>
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Function</th>
+                                <th>Description</th>
+                                <td>Parametres</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>html5Error</td>
+                                <td>{function} When browser doesn't support HTML5, this will be fired</td>
+                                <td>none</td>
+                            </tr>
+                            <tr>
+                                <td>success</td>
+                                <td>{function} When a file uploaded to server succesfully,this will be fired</td>
+                                <td><code>XMLHttpRequestProgressEvent</code></td>
+                            </tr>
+                            <tr>
+                                <td>progress</td>
+                                <td>{function} While a file is being uploaded it will be return percent value and div id</td>
+                                <td><code>{ percent: "100", template: "templateid from imageholder" }</code></td>
+                            </tr>
+                            <tr>
+                                <td>error</td>
+                                <td>{function} When error occured, this will be fired.</td>
+                                <td><code>uploaderObject</code> - <code>ErrorMessage</code> - <code>ErrorObject</code></td>
+                            </tr>
+
+                            <tr>
+                                <td>beforeSend</td>
+                                <td>{function} When before send files, this will be fired. <br /><code>Important !</code> Its child of ajax properties like ajax : { beforeSend : function(xhr) { //Do your thing } } </td>
+                                <td><code>xhr</code> - <code>XMLHttpRequest</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h5>Direct Functions <code>new important</code></h5>
+                    <div>
+                        <p>This functions are calling with uploader object.</p>
+                        <p>For example; You did a instance of PureUploader</p>
+                        <pre>
+                                var myUploader = new PureUploader({.....});
+                                myUploader.start('temp_123441411', function(){ console.log("My job is done.") });
+                        </pre>
+
+                    </div>
+                    <p>Note : If a function has foo parameters, its mean you can give it a function for after the job completed.</p>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Function</th>
+                                <th>Description</th>
+                                <td>Parametres</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>start</td>
+                                <td>{function} It will start the upload of the item.</td>
+                                <td><code>id</code> - <code>foo</code></td>
+                            </tr>
+                            <tr>
+                                <td>pause</td>
+                                <td>{function} It will pause the upload of the item.</td>
+                                <td><code>id</code> - <code>foo</code></td>
+
+                            </tr>
+                            <tr>
+                                <td>remove</td>
+                                <td>{function} It will remove the upload and abort the XHR object.</td>
+                                <td><code>id</code> - <code>foo</code></td>
+                            </tr>
+                            <tr>
+                                <td>find</td>
+                                <td>{function} Find the object of item.</td>
+                                <td><code>id</code></td>
+                            </tr>
+
+                            <tr>
+                                <td>isworking</td>
+                                <td>{function} If there is a uploading item it will be return true. <br /><code>Important !</code> Its child of ajax properties like ajax : { beforeSend : function(xhr) { //Do your thing } } </td>
+                                <td>none</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <hr>
+            </div>
+            <div class="span9">
+                <section id="template" class="well">
+                    <h3>2.3 - Template <code>new important</code></h3>
+                    <p>This attribute is making more customize the uploader. It is working simple, but you need to be careful on usage. You should don't forget some keys. </p>
+
+                    <p>Default value</p>
+                    <pre>
+                        
+    template:
+        '&ltdiv class="form-group text-center"&gt' +
+            '&lta href="javascript:void(0)" class="btn btn-danger close" onclick="{uploader}.remove(\'{id}\')"&gtx&lt/a&gt' +
+            '{image}' +
+        '&lt/div&gt' +
+        '&ltdiv class="form-group text-center"&gt' +
+            '&ltdiv class="form-group col-md-6"&gt' +
+                '&lta href="javascript:void(0)" class="btn btn-info" onclick="{uploader}.start(\'{id}\')"&gtStart&lt/a&gt' +
+            '&lt/div&gt' +
+            '&ltdiv class="form-group col-md-6"&gt' +
+                '&lta href="javascript:void(0)" class="btn btn-info" onclick="{uploader}.pause(\'{id}\')"&gtPause&lt/a&gt' +
+            '&lt/div&gt' +
+            '&ltp&gt{file.name} - {file.size}&lt/p&gt' +
+        '&lt/div&gt',
+</pre>
+
+                </section>
+
+                <p>As you see at the above, there are keys like {uploader},{image},{id},{file.name},{file.size}</p>
+
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{uploader}</td>
+                            <td>It will return the uploader name which is you will give it on settings.</td>
+                        </tr>
+                        <tr>
+                            <td>{image}</td>
+                            <td>It will be image position on the html side.</td>
+                        </tr>
+                        <tr>
+                            <td>{id}</td>
+                            <td>It will return the id of item.</td>
+                        </tr>
+                        <tr>
+                            <td>{file.name}</td>
+                            <td>Just file name.</td>
+                        </tr>
+                        <tr>
+                            <td>{file.size}</td>
+                            <td>Just file size.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="span9">
+                <section id="infos" class="well">
+                    <h3>2.4 - Informations</h3>
+                    <h4>Gifs</h4>
+                    Gifs are supported on this version, but watermarks is can't working on gifs. You can upload gifs, and you can make thumbnails of front side.
+                    <br />But end-side of code you must use some 3rd party plugin for gifs thumbnails.
+                    <br />
+                    Like here :
+                    <br />
+                    <b>.NET</b> : <a href="http://giflib.codeplex.com/">http://giflib.codeplex.com/</a> , <a href="http://www.codeproject.com/Articles/11505/NGif-Animated-GIF-Encoder-for-NET">http://www.codeproject.com/Articles/11505/NGif-Animated-GIF-Encoder-for-NET</a>
+                    <br />
+                    <b>PHP</b> : GD Library will enough.
+
+                </section>
+                <hr>
+            </div>
+            <div class="span9">
+                <section class="well" id="server-overview">
+                    <h3>3.1 - Overview</h3>
+                    <h5>For Html5 : </h5>
+                    <p>You must handle your html5 upload with base64 stream type, which like we've done via <a href="#aspnet">ASP.NET</a></p>
+                    <p>After handling base64, you would return JSON result whatever your want</p>
+
+                    <h5>For Oldschool : </h5>
+                    <p>You must handle like regular upload. It's based on your server language for example in ASP.NET it's <span style="color:#0094ff">HttpPostedFileBase</span></p>
+                </section>
+                <hr>
+            </div>
+
+            <div class="span9">
+                <section class="well" id="aspnet">
+                    <h3>3.3 - Asp.NET </h3>
+
+                    <p>We have developed our dll for .net applications, it will come with the plugin you can use</p>
+                    <p>There are 2 functions</p>
+                    TFile:
+                    <ol>
+                        <li>UploadAjax(Stream = base64, string = fileName, Bool = thumbnail)</li>
+                        <li>UploadAjax(HttpPostedFileBase = file, Bool = thumbnail)</li>
+                    </ol>
+                    <h5>Asp.NET MVC 4 Example</h5>
+
+                    Ajax:
+                    <pre class="prettyprint linenums">
+        [HttpPost]
+        public ActionResult Receive()
+        {
+            bool thumb = Convert.ToBoolean(Request.Headers["Uploader-Thumb"]);
+            int thumb_width = Convert.ToInt32(Request.Headers["Uploader-ThumbHeight"]);
+            int thumb_height = Convert.ToInt32(Request.Headers["Uploader-ThumbWidth"]);
+            string name = Request.Headers["Uploader-Name"];
+            
+            TFile file = new TFile(Server.MapPath("~/uploads/images"), Server.MapPath("~/uploads/thumbnails"), thumb_width, thumb_height);
+            if (file.UploadAjax(Request.InputStream, name, thumb) == -1) //fail
+            {
+                return Json(false);
+            }
+            else //success
+            {
+                return Json(true);
+            }
+        }
+                        </pre>
+
+
+                </section>
+            </div>
+            <div class="span9">
+                <section class="well" id="php">
+                    <h3>3.3 - PHP </h3>
+                    <p>You can see php example at <code>/examples/example-php</code></p>
+                </section>
+            </div>
+            <hr>
+
+            <div class="span9">
+                <section class="well" id="end">
+                    <h3>4.1 - End of documation </h3>
+                    <p>Thanks for Purchasing.</p>
+                </section>
+            </div>
+        </div><!--/row-->
+        <hr>
+
+        <footer>
+            <p>&copy; lyzerk 2013</p>
+        </footer>
+
+    </div><!--/.fluid-container-->
+    <script src="assets/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/jquery.gritter.min.js"></script>
+    <script src="assets/js/bootstrap-affix.js"></script>
+    <script src="assets/google-code-prettify/prettify.js"></script>
+    <script src="assets/js/app.js"></script>
+
+</body>
+</html>

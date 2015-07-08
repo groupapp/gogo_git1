@@ -1,0 +1,39 @@
+        body { font-family: Ubuntu, sans-serif; }
+        #dropPlace {
+            width:500px;
+            height: 200px;
+            border: 3px dashed #ccc;
+        }
+
+        .file {
+            position: relative;
+            width: 420px;
+            clear: both;
+            padding: 5px;
+        }
+
+            .file img {
+                float: left;
+            }
+
+            .file canvas {
+                float: left;
+            }
+
+            .file span {
+
+                padding: 15px;
+                width: 300px;
+            }
+
+            .file div {
+                text-align:center;
+                padding:5px;
+            }
+
+        .close {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            text-decoration: none;
+        }

@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+.testbox{
+	display:none;
+	position: fixed;
+	top: 220px;
+	right: 400px;
+	
+	width: 400px;	
+	height: 300px;
+	
+	box-shadow: 0 0 40px #333333;
+	z-index: 900;
+	background: #CCC;
+	
+	padding: 20px;
+}
+
+
+.testbox h1{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 34px;
+	color: #333;
+}
+
+
+
+.testbox h2{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 34px;
+	color: #333;
+	
+}
+
+
+
+#top-menu-float{
+	z-index: 99999;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	visibility: hidden;
+}

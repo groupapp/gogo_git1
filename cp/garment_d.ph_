@@ -1,0 +1,1456 @@
+﻿<?php 
+include('connect.php');
+include('function.php');
+	#Connect to the database
+	//connection String
+	$connect = mysql_connect($hostname, $username, $password)
+	or die('Could not connect: ' . mysql_error());
+	//Select The database
+	$bool = mysql_select_db($database, $connect);
+	if ($bool === False){
+	   print "can't find $database";
+	}
+//$garment_token=$_COOKIE["garmenttoken"];
+
+$user_id=$_COOKIE["userID"];
+//echo "cookie:".$_COOKIE["userID"];
+if($user_id=='')
+echo "<script type=\"text/javascript\">
+alert(\"current log out. Please relogin.\");
+//location.reload();
+</script>";
+
+
+$garment_seq		= (!empty($_GET['garment_seq']))?$_GET['garment_seq']:0;
+$garment_id		= (!empty($_GET['garment_id']))?$_GET['garment_id']:null;
+//$garment_token		= (!empty($_GET['garment_token']))?$_GET['garment_token']:null;
+$garment_newcheck		= (!empty($_GET['garment_newcheck']))?$_GET['garment_newcheck']:null;
+$garment_savesucess=empty($_GET["garment_savesucess"])?null:$_GET["garment_savesucess"];
+//print_r('token33'.$journal_token."savechk:".$savesucess);
+
+
+//print_r("/token:".$garment_token);
+//$gettoken="cookie:".$_COOKIE["garmenttoken"];
+
+$garment_token=$_SESSION["garment_token"];
+
+$d_query = "SELECT count(*) as cnt  FROM garment a,garment_detail b  where b.user_id='".$user_id."' and a.garment_token=b.garment_token  and b.save_chk='N'";
+
+		$d_result = mysql_query($d_query) or die("SQL Error 1: " . mysql_error());
+		
+		while ($d_row = mysql_fetch_array($d_result, MYSQL_ASSOC)) {
+		$garment_detail_cnt = intval($d_row['cnt']);
+		}
+
+
+
+if($garment_id!="")
+{
+$query = "SELECT  * FROM garment where garment_id='".$garment_id."'";
+
+//print_r($query);
+		$result = mysql_query($query) or die("SQL Error 1: " . mysql_error());
+		
+		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+				
+				$description = $row['description'];
+				$size_id = $row['size_id'];
+				$location_id = $row['location_id'];
+				$active = $row['active'];
+				$category_id = $row['category_id'];
+				$cost_from_cost = $row['cost_from_cost'];
+				$img_url = $row['img_url'];
+				$garment_token = $row['garment_token'];
+				$note = $row['note'];
+				$folder = $row['folder'];
+		}
+		if($garment_savesucess=="Y")
+		{	
+			$serverURL = $_SERVER['DOCUMENT_ROOT'] . '/myfilemanager/dynamic_folder/' . $folder;
+			//echo $serverURL;	
+				if(!file_exists($serverURL))
+				{
+					mkdir($serverURL, 0777, true);
+					echo "<script>alert('New Folder Created');</script>";
+				}
+		}
+}
+else
+{
+	/*echo "<script type=\"text/javascript\">
+	alert(\"current cookie error Please relogin.\");
+	location.reload();
+	</script>";*/
+
+}
+			/*
+			$tjournaldate = explode("-", $journaldate);
+			$yjournaldate=$tjournaldate[0];
+			$mjournaldate=$tjournaldate[1];
+			$djournaldate=$tjournaldate[2];
+			$sjournaldate=$yjournaldate.' ,'.$mjournaldate.' ,'.$djournaldate;	
+		*/
+
+
+?>
+	<script type="text/javascript">
+        function invntory_open_window(garment_id,color_id,size_id,location_id)
+		{
+		   window.open('http://egcjc.org/aw/contents/garment_s1.php?garment_id='+garment_id+'&garment_color_id='+color_id+'&size_id='+size_id+'&id_location='+location_id,'new window','toolbar=0, location=no,status=no,etc,scrollbars=yes,resizable=yes,width=1300px,height=600px');
+		
+		}
+		function elfinder(id){
+			//alert(id);
+			if(id===undefined)
+			{
+			alert('Grment ID empty');
+			return false;
+			}
+			var folder="GA_"+id;
+			window.open('http://egcjc.org/myfilemanager/elfinder/elfinder.html?folderName='+folder,'new window','toolbar=0, location=no,status=no,etc,scrollbars=yes,resizable=yes,width=900px,height=450px');
+		}
+		
+		$(document).ready(function () {
+            // prepare the data
+            var data = {};
+			var getdate=$("#sjournaldate").val();
+			var active=$("#active").val();
+			var garment_newcheck=$('garment_newcheck').val();
+			var garment_savesucess=$('#garment_savesucess').val();
+			var garment_token=$('#garment_token').val();
+			var theme = 'bootstrap';
+			var lastid=0;
+
+			
+			$("#jqxCheckBox10").jqxCheckBox({ width: 120, height: 25,  disabled:true,theme: theme });
+			if (active=="N")
+			{
+				$("#jqxCheckBox10").jqxCheckBox({ checked: false });
+			}
+			else
+				$("#jqxCheckBox10").jqxCheckBox({ checked: true });
+
+            $("#jqxCheckBox10").on('change', function (event) {
+                var checked = event.args.checked;
+                if (checked) {
+                    $("#jqxCheckBox10").find('span')[1].innerHTML = 'Active';
+                }
+                else {
+                    $("#jqxCheckBox10").find('span')[1].innerHTML = 'Inactive';
+                }
+            });
+			$("#jqxCheckBox11").jqxCheckBox({ width: 120, height: 25, checked: true, disabled:true,theme: theme });
+          	
+			var garment_d_generaterow = function (id,color_id,description) {
+                var row = {};
+                row["garment_d_seq"] = id;
+				row["garment_id"] =jQuery("#garment_id").val();
+				row["color_id"] =color_id;
+				row["color_description"] =description;
+				row["garment_token"] =jQuery("#garment_token").val();
+				row["user_id"] =jQuery("#user_id").val();
+				return row;
+            }
+			var garment_lastid = function () {
+               
+				var result;
+					$.ajax({
+						async:false,
+						type:"get",
+						url:"garment_data.php",
+						data:{"lastid":true},
+						dataType:"json",
+						success: function(data) {
+							if( data==null)
+									rowscount=1;
+								else
+								rowscount=parseInt(data[0].garment_seq)+1;
+
+							result = parseInt(rowscount);
+						}
+					});
+
+					return result;
+
+            }
+             var numberrenderer = function (row, column, value) {
+                 return '<div style="text-align: center; margin-top: 5px;">' + (1 + value) + '</div>';
+             }
+
+             // create Grid datafields and columns arrays.
+            
+			var cssclass = 'jqx-widget-header';
+                     if (theme != '') cssclass += ' jqx-widget-header-' + theme;
+            
+			
+			$('.text-input').jqxInput({ theme: theme });
+			// initialize validator.
+            
+			$('#garmentForm').jqxValidator({
+                hintType: 'label',
+                animationDuration: 0,
+             rules: [
+                    { input: '#garment_id', message: 'Grament ID is required!', action: 'keyup, blur', rule: 'required' }
+                    ], theme: theme
+            });	
+			/*
+			$("#notesave").bind('click', function () {	
+				$.ajax({
+                            dataType: 'json',
+                            url: 'garment_data.php',
+                            async:true,
+							cache: false,
+							type:"post",
+							data:{"update":"true","":"1","onlynote":"true","note":note},
+                            success: function (data) {
+							alert('Successful update!');
+							}
+							
+						});
+				//}
+			});*/
+			$("#noteclose").bind('click', function () {	
+			
+				$('#window').jqxWindow('close');
+			});
+			
+			$('#garment_id').jqxInput({disabled: true, theme:theme});
+			
+			$('#description').jqxInput({disabled: true, theme:theme});
+			$('#category_id').jqxInput({disabled: true, theme:theme});	
+			$('#size_id').jqxInput({disabled: true, theme:theme});
+			$('#location_id').jqxInput({disabled: true, theme:theme});
+			$('#location_name').jqxInput({disabled: true, theme:theme});
+			
+			$("#garment_editrowbutton").bind('click', function () {
+			$('#garment_id').jqxInput({disabled: false});
+			$('#description').jqxInput({disabled:false  });
+			$('#category_id').jqxInput({disabled: false});	
+			$('#size_id').jqxInput({disabled: false});
+			$('#location_id').jqxInput({disabled: false});
+			$('#location_name').jqxInput({disabled: false});
+
+			$('#garment_jqxgrid').jqxGrid({ editable: true});
+			$("#garment_d_deleterowbutton").jqxButton({  disabled:false});
+            $("#garment_d_addrowbutton").jqxButton({  disabled:false });
+			//$("#garment_d_saverowbutton").jqxButton({  disabled:false});
+			//$("#garment_d_cancelrowbutton").jqxButton({  disabled:false});
+			$("#showWindowButton").jqxButton({  disabled:false});
+			$("#jqxCheckBox10").jqxCheckBox({  disabled:false});
+			$("#jqxCheckBox11").jqxCheckBox({  disabled:false});
+			});
+
+            var garment_token=$("#garment_token").val();
+			var garment_id=$("#garment_id").val();
+
+			var garment_source =
+            {
+                 datatype: "json",
+                 datafields: [
+					 { name: 'garment_d_seq', type: 'number'},
+					 { name: 'garment_id', type: 'string'},
+					 { name: 'instock', type: 'float'},
+					 { name: 'po', type: 'float'},
+					 { name: 'cutpiece', type: 'float'},
+					 { name: 'touse', type: 'float'},
+					 { name: 'available', type: 'float'},
+					 { name: 'color_id', type: 'numer'},
+					 { name: 'color_description', type: 'numer'},
+					 { name: 'cost', type: 'float'},
+					 { name: 'garment_token', type: 'string'},	 
+					 
+                ],
+				id: 'garment_d_seq',
+                url: 'garment_detail_data.php',    
+				//root: 'Rows',
+				data:{'garment_token':garment_token,'garment_id':garment_id},
+				cache: false,
+				/*beforeprocessing: function(data)
+				{		
+					
+					garment_source.totalrecords = data[0].TotalRows;
+					//alert(source.totalrecords);
+				},*/
+                addrow: function (rowid, rowdata, position, commit) {
+               // alert(position);
+					// synchronize with the server - send insert command
+					
+					var data = "insert=true&" + $.param(rowdata);
+					//alert(data);
+					   $.ajax({
+                            dataType: 'json',
+                            url: 'garment_detail_data.php',
+                            data: data,
+							cache: false,
+                            success: function (data, status, xhr) {
+							   // insert command is executed.
+								//alert(data);
+								commit(true);
+							},
+							error: function(jqXHR, textStatus, errorThrown)
+							{
+								commit(false);
+							}
+						});							
+			    },
+                deleterow: function (rowid,commit) {
+                    // synchronize with the server - send delete command
+					 // var account_id = $('#garment_jqxgrid').jqxGrid('getcellvaluebyid', rowid, "account_id");
+					  var garment_token = $('#garment_jqxgrid').jqxGrid('getcellvaluebyid', rowid, "garment_token");
+            		   var data = "delete=true&" + $.param({garment_d_seq: rowid,garment_token:garment_token});
+				       $.ajax({
+                            dataType: 'json',
+                            url: 'garment_detail_data.php',
+							cache: false,
+                            data: data,
+                            success: function (data, status, xhr) {
+							   // delete command is executed.
+							   commit(true);
+							},
+							error: function(jqXHR, textStatus, errorThrown)
+							{
+								commit(false);
+							}
+						});							
+			   },	
+                updaterow: function (rowid, rowdata, commit) {
+			        // synchronize with the server - send update command
+					//alert(rowdata.account_description);
+                    var data = "update=true&" + $.param(rowdata);
+					//alert('ttt'+data);
+					$.ajax({
+						dataType: 'json',
+						url: 'garment_detail_data.php',
+						data: data,
+						success: function (data, status, xhr) {
+							// update command is executed.
+							commit(true);
+						}
+					});		
+                }
+            
+            };
+
+			 var cellclass = function (row, columnfield, value) {
+                 return 'green';
+            }
+
+ 		    var garment_dataadapter = new $.jqx.dataAdapter(garment_source);
+           
+
+			$("#garment_jqxgrid").jqxGrid(
+            {
+                width: 800,height:450,
+				//selectionmode: 'singlecell',
+                source: garment_dataadapter,
+                theme: theme,
+				ready: function () {
+                    $("#garment_jqxgrid").jqxGrid('hidecolumn', 'garment_d_seq');
+					$("#garment_jqxgrid").jqxGrid('hidecolumn', 'garment_id');
+					$("#garment_jqxgrid").jqxGrid('hidecolumn', 'color_id');
+					$("#garment_jqxgrid").jqxGrid('hidecolumn', 'garment_token');
+                },
+				editable: true,
+				autoheight: false,
+				//pageable: true,
+                columnsresize: true,
+                columnsreorder: true,
+				sortable: true,
+				//showfilterrow: true,
+                filterable: true,
+				showstatusbar: true,
+                statusbarheight: 30,
+				 showaggregates: true,
+                showtoolbar: true,
+				//selectionmode: 'multiplecellsadvanced',
+				//columnsresize: true,
+				//virtualmode: true,
+				/*rendergridrows: function(obj)
+				{
+					  return obj.data;     
+				},*/
+				//filtertype: 'list', filteritems: items,
+				rendertoolbar: function (toolbar) {
+                    var me = this;
+                    var container = $("<div style='margin: 1px;'></div>");
+                   var excelExport =$("<div style='margin-left: 10px; float: left;'> <input type='button' value='Export to Excel' id='excelExport' /></div>");
+					var csvExport =$("<div style='margin-left: 10px; float: left;'><input type='button' value='Export to CSV' id='csvExport' /></div>");
+					
+					toolbar.append(container);
+                   container.append(excelExport);
+                    container.append(csvExport);
+					
+					
+                    
+                    
+					$("#excelExport").jqxButton({ theme: theme });
+					$("#csvExport").jqxButton({ theme: theme });
+					
+				   $("#excelExport").click(function () {
+						$("#garment_jqxgrid").jqxGrid('exportdata', 'xls', 'jqxGrid');           
+					});
+					$("#csvExport").click(function () {
+						$("#garment_jqxgrid").jqxGrid('exportdata', 'csv', 'jqxGrid');
+					});
+					
+                },
+                columns: [
+					  {pinned: true, exportable: false, text: "", columntype: 'number', cellclassname: cssclass, cellsrenderer: numberrenderer },	
+                      { text: 'garment seq', editable: false, datafield: 'garment_d_seq', width: 20 },
+					  { text: 'garment ID', editable: false, datafield: 'garment_id', width: 80,align: 'center' },
+					 
+ 					  { text: 'Color', editable: false,datafield: 'color_id', width: 40,align: 'left'},
+					  { text: 'Color', editable: false,datafield: 'color_description', width: 200,align: 'left',cellclassname: cellclass},
+					  { text: 'Instock', editable: false,datafield: 'instock', width: 80,align: 'center',cellsformat: 'n2',cellsalign: 'right',cellclassname: cellclass, aggregates: ['sum'],
+					  },
+					  { text: 'PO', editable: false,datafield: 'po', width: 80,align: 'center',cellsformat: 'n2',cellsalign: 'right',cellclassname: cellclass, aggregates: ['sum'],
+					  },
+					  { text: 'Cut Piece', editable: false,datafield: 'cutpiece', width: 80,align: 'center',cellsformat: 'n2',cellsalign: 'right',cellclassname: cellclass, aggregates: ['sum'],
+					  },
+					  { text: 'To Use', editable: false,datafield: 'touse', width: 80,align: 'center',cellsformat: 'n2',cellsalign: 'right',cellclassname: cellclass, aggregates: ['sum'],
+					  },
+					  { text: 'Available', editable: false,datafield: 'available', width: 80,align: 'center',cellsformat: 'n2',cellsalign: 'right',cellclassname: cellclass, aggregates: ['sum'],
+					  },
+					  { text: 'Cost', editable: true,datafield: 'cost', width: 80,align: 'center',cellsformat: 'c2',cellsalign: 'right', aggregates: ['sum'],
+					  },	  
+					  { text: 'garment_token', editable: false,datafield: 'garment_token', width: 80},
+					  { text: 'Inv.Detail', datafield: 'Edit', width: 86,align: 'center', columntype: 'button', cellsrenderer: function () {
+							 return "Edit";
+						  }, buttonclick: function (row) {
+							 var dataRecord = $("#garment_jqxgrid").jqxGrid('getrowdata', row);	
+							 var garment_id=dataRecord.garment_id;
+							 var color_id=dataRecord.color_id;
+							 var size_id=$('#size_id').val();
+							 var location_id=$('#location_id').val();
+							invntory_open_window(garment_id,color_id,size_id,location_id);		
+						 }
+					   }	  
+                      
+                  ]
+            });
+            if (garment_newcheck =='Y')
+			{
+				$('#garment_jqxgrid').jqxGrid({ editable: true});
+			}
+			else if(garment_savesucess=='Y')
+				$('#garment_jqxgrid').jqxGrid({ editable: true});
+			else
+				$('#garment_jqxgrid').jqxGrid({ editable: true});
+
+			$("#garment_deleterowbutton").jqxButton({ theme: theme });
+            $("#garment_listrowbutton").jqxButton({ theme: theme });
+			$("#garment_addrowbutton").jqxButton({ theme: theme });
+			$("#garment_saverowbutton").jqxButton({ theme: theme });
+			$("#garment_editrowbutton").jqxButton({ theme: theme });
+            
+			// update row.
+			$("#garment_listrowbutton").bind('click', function () {
+				
+				location='?position=garment';
+					
+            });
+		/*	
+			$("#garment_jqxgrid").on('cellendedit', function (event) 
+				{
+					var column = args.datafield;
+					
+					var row = args.rowindex;
+					var value = args.value;
+					var oldvalue = args.oldvalue;
+					if(column=='account_id')
+					{
+						
+						
+					}	
+				});
+		*/	
+			
+			$("#garment_saverowbutton").bind('click', function () {
+				
+				var garment_seq=$("#garment_seq").val();
+
+				
+				var garment_id=$("#garment_id").val();
+				
+				/*
+				if (garment_seq==0)
+				{
+					var garment_seq=garment_lastid();		
+				}*/
+				//alert('xx:'+garment_id);
+
+				$("#garment_id").val(garment_id);
+				
+
+				var description=$("#description").val();
+				var category_id=$("#category_id").val();
+				var size_id=$("#size_id").val();
+				var active=$("#size_id").val();
+				var location_id=$("#location_id").val();
+				var cost_from_cost=$("#cost_from_cost").val();
+				var img_url=$("#img_url").val();
+				var garment_token=$("#garment_token").val();
+			//	alert(category_id);
+				var user_id=$("#user_id").val();
+				if($("#jqxCheckBox10").val()==true)
+				var active="Y";
+				else
+				var active="N";
+				if($("#jqxCheckBox11").val()==true)
+				var cost_from_cost="Y";
+				else
+				var cost_from_cost="N";
+				var note=$('#note').val();
+				var folder="GA_"+$('#garment_id').val();
+				if(confirm("Do you want to save?"))
+				{
+				
+						if (garment_seq ==0)
+						{
+						var garment_seq=garment_lastid();	
+						$.ajax({
+									dataType: 'json',
+									url: 'garment_data.php',
+									async:true,
+									cache: false,
+									type:"post",
+									data:{"insert":"true","garment_seq":garment_seq,"garment_id":garment_id,"description":description,"category_id":category_id,"size_id":size_id,"location_id":location_id,"active":active,"cost_from_cost":cost_from_cost,"img_url":img_url,"garment_token":garment_token,"user_id":user_id,"note":note,"folder":folder},
+									success: function (data) {
+									}
+								});
+						$.ajax({
+									dataType: 'json',
+									url: 'garment_data.php',
+									async:true,
+									cache: false,
+									type:"post",
+									data:{"in_save":"true","user_id":user_id,"garment_id":garment_id,"garment_token":garment_token,"size_id":size_id},
+									success: function (data) {
+									}
+									
+								});
+
+						}
+						else
+						{
+						//var data = "update=true&seq="+seq;
+						$.ajax({
+									dataType: 'json',
+									url: 'garment_data.php',
+									async:true,
+									cache: false,
+									type:"post",
+									data:{"update":"true","garment_seq":garment_seq,"garment_id":garment_id,"description":description,"category_id":category_id,"size_id":size_id,"location_id":location_id,"active":active,"cost_from_cost":cost_from_cost,"img_url":img_url,"garment_token":garment_token,"user_id":user_id},
+									success: function (data) {
+									}
+									
+								});
+						$.ajax({
+									dataType: 'json',
+									url: 'garment_data.php',
+									async:true,
+									cache: false,
+									type:"post",
+									data:{"save":"true","user_id":user_id,"garment_id":garment_id,"garment_token":garment_token,"size_id":size_id},
+									success: function (data) {
+									}
+									
+								});
+							
+							
+						}
+						alert('Successful Save!');
+						location='?position=garmentd&garment_seq='+garment_seq+'&garment_id='+garment_id+'&garment_token='+garment_token+"&garment_savesucess=Y";	
+				}
+				else
+				{
+				
+						$.ajax({
+                            dataType: 'json',
+                            url: 'garment_data.php',
+                            async:true,
+							cache: false,
+							type:"post",
+							data:{"cancel":"true","user_id":user_id,"garment_token":garment_token},
+
+                            success: function (data) {
+							//alert('Successful update!');
+							//location.reload();
+							location='?position=garment';
+							}
+							
+						});
+						return false;
+				  }	
+
+
+            });
+			$("#garment_addrowbutton").bind('click', function () {
+				location='?position=garmentd&garment_newcheck=Y';
+			
+            });
+            // delete row.
+            
+			$("#garment_deleterowbutton").bind('click', function () {
+              
+			   if(confirm("Do you want to delete?")){
+					
+			   var garment_seq=$("#garment_seq").val();
+			   var garment_id=$("#garment_id").val();
+				//var data = "delete=true&seq="+seq;
+				$.ajax({
+                            dataType: 'json',
+                            url: 'garment_data.php',
+                            async:true,
+							cache: false,
+							type:"post",
+							data:{"delete":"true","garment_seq":garment_seq,"garment_id":garment_id},
+							success: function (data) {
+							alert('Successful delete!');
+								location='?position=garment';
+							},
+							error: function(jqXHR, textStatus, errorThrown)
+							{
+								commit(false);
+							}
+						});
+					}
+				 return false;
+
+            });
+			
+			
+//=============garment-detail===========================
+			if (garment_newcheck=='Y')
+			{
+				$("#garment_d_deleterowbutton").jqxButton({ theme: theme, disabled:false});
+				$("#garment_d_addrowbutton").jqxButton({ theme: theme, disabled:false });
+				//$("#garment_d_saverowbutton").jqxButton({ theme: theme , disabled:false});
+				//$("#garment_d_cancelrowbutton").jqxButton({ theme: theme , disabled:false});
+            }
+			else if (garment_savesucess='Y')
+			{
+				$("#garment_d_deleterowbutton").jqxButton({ theme: theme, disabled:false});
+				$("#garment_d_addrowbutton").jqxButton({ theme: theme, disabled:false });
+				//$("#garment_d_saverowbutton").jqxButton({ theme: theme , disabled:false});
+				//$("#garment_d_cancelrowbutton").jqxButton({ theme: theme , disabled:false});
+
+			}
+			else
+			{
+				$("#garment_d_deleterowbutton").jqxButton({ theme: theme, disabled:true});
+				$("#garment_d_addrowbutton").jqxButton({ theme: theme, disabled:true });
+				//$("#garment_d_saverowbutton").jqxButton({ theme: theme , disabled:true});
+				//$("#garment_d_cancelrowbutton").jqxButton({ theme: theme , disabled:true});
+            }
+			// update row.
+			/*
+			$("#garment_d_addrowbutton").bind('click', function () {
+				$('#g_window0').jqxWindow('open');
+				 });*/
+/*
+			$("#garment_d_cancelrowbutton").bind('click', function () {
+				
+				$("#garment_d_addrowbutton").show();
+				$("#garment_d_saverowbutton").hide();
+				$("#garment_d_cancelrowbutton").hide();
+				
+            });
+
+            $("#garment_d_saverowbutton").on('click', function () {
+               
+			   var garment_token=$("#garment_token").val();
+			   
+			   
+				var rowscount=0;
+				var data = "lastid=true";
+				$.ajax({
+                            dataType: 'json',
+                            url: 'garment_detail_data.php',
+                            data: data,
+							cache: false,
+                            success: function (data) {
+							   // insert command is executed.
+								if( data==null)
+									rowscount=1;
+								else
+								rowscount=parseInt(data[0].garment_d_seq)+1;
+								
+								var datarow = garment_d_generaterow(rowscount);
+								$("#garment_jqxgrid").jqxGrid('addrow', null, datarow,'first');				
+								$("#garment_d_addrowbutton").show();
+								$("#garment_d_saverowbutton").hide();
+								$("#garment_d_cancelrowbutton").hide();
+								
+							},
+							error: function(jqXHR, textStatus, errorThrown)
+							{
+								commit(false);
+							}
+						});
+            });
+*/
+            // delete row.
+            $("#garment_d_deleterowbutton").bind('click', function () {
+                if(confirm("Do you want to delete?")){
+					var selectedrowindex = $("#garment_jqxgrid").jqxGrid('getselectedrowindex');
+					
+					var rowscount = $("#garment_jqxgrid").jqxGrid('getdatainformation').rowscount;
+				//alert(selectedrowindex);
+				//alert(rowscount);
+					if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+					
+						var id = $("#garment_jqxgrid").jqxGrid('getrowid', selectedrowindex);
+					  //alert('xx:'+id);
+					
+						$("#garment_jqxgrid").jqxGrid('deleterow', id);
+					}
+				}
+				return false;
+            });
+//=====================================================
+
+
+            $("#garment_jqxgrid").on("sort", function (event) {
+
+                var sortinformation = event.args.sortinformation;
+                var sortdirection = sortinformation.sortdirection.ascending ? "ascending" : "descending";
+                if (!sortinformation.sortdirection.ascending && !sortinformation.sortdirection.descending) {
+                    sortdirection = "null";
+                }
+
+            });
+			 
+//===============================================================
+			var basicDemo = (function () {
+            //Adding event listeners
+            function _addEventListeners() {
+                
+				$('#showWindowButton').click(function () {
+                    $('#window').jqxWindow('open');
+                });
+
+				$('#garment_d_addrowbutton').click(function () {
+                    $('#g_window0').jqxWindow('open');
+                });
+               
+            };
+			
+			//Creating all page elements which are jqxWidgets
+            function _createElements() {
+                $('#showWindowButton').jqxButton({ theme: basicDemo.config.theme, width: '70px',disabled:true });
+               $('#garment_d_addrowbutton').jqxButton({ theme: basicDemo.config.theme, width: '70px',disabled:false });
+			   };
+
+            //Creating the demo window
+            function _createWindow() {
+                $('#window').jqxWindow({
+                    showCollapseButton: true, maxHeight: 400, maxWidth: 700, minHeight: 200, minWidth: 200, height: 300, width: 500, theme: basicDemo.config.theme,
+                    initContent: function () {
+                        $('#window').jqxWindow('focus');
+                    }
+                });
+
+				$('#g_window0').jqxWindow({
+                    showCollapseButton: true, maxHeight: 400, maxWidth: 700, minHeight: 200, minWidth: 200, height: 300, width: 500, theme: basicDemo.config.theme,
+                    initContent: function () {
+                        $('#g_window0').jqxWindow('focus');
+                    }
+                });
+            };
+
+            return {
+                config: {
+                    dragArea: null,
+                    theme: null
+                },
+                init: function () {
+                    //Creating all jqxWindgets except the window
+                    _createElements();
+                    //Attaching event listeners
+                    _addEventListeners();
+                    //Adding jqxWindow
+                    _createWindow();
+                }
+            };
+        } ());
+
+            //Setting demo's theme
+            basicDemo.config.theme = theme;
+            //Initializing the demo
+            basicDemo.init();
+			$('#window').jqxWindow('close');
+			$('#g_window0').jqxWindow('close');
+			
+
+//================================================================
+//-----------------------------------------------------------------------
+			
+			
+			$('#g_window0').on('open', function (event) { 
+
+			var g_color_generaterow = function (id) {
+                var row = {};
+               // var descriptionindex = Math.floor(Math.random() * firstNames.length);
+                //var lastnameindex = Math.floor(Math.random() * lastNames.length);
+               //alert(id);
+                row["color_id"] = id;
+				row["description"] =jQuery("#g_test").val();
+                //row["description"] = firstNames[firtnameindex];
+                
+                return row;
+            }
+			var g_color_source =
+            {
+                 datatype: "json",
+				   
+                 datafields: [
+					 { name: 'color_id', type: 'number'},
+					 { name: 'description', type: 'string'},
+					 {pinned: true, exportable: false, text: "", columntype: 'number', cellclassname: cssclass, cellsrenderer: numberrenderer },
+					 
+                ],
+				//totalrecords: 10000000,
+				id: 'color_id',
+                url: 'color_data.php',    
+				root: 'Rows',
+				cache: false,
+				updaterow: function (rowid, rowdata) {
+                    // synchronize with the server - send update command   
+                },
+				addrow: function (rowid, rowdata, position, commit) {
+               // alert(position);
+					// synchronize with the server - send insert command
+					
+					var g_data = "insert=true&" + $.param(rowdata);
+					//alert(data);
+					   $.ajax({
+                            dataType: 'json',
+                            url: 'color_data.php',
+                            data: g_data,
+							cache: false,
+                            success: function (data, status, xhr) {
+							   // insert command is executed.
+								//alert(data);
+								commit(true);
+							},
+							error: function(jqXHR, textStatus, errorThrown)
+							{
+								commit(false);
+							}
+						});							
+			    },
+                deleterow: function (rowid, commit) {
+                    // synchronize with the server - send delete command
+            		   var g_data = "delete=true&" + $.param({color_id: rowid});
+				       $.ajax({
+                            dataType: 'json',
+                            url: 'color_data.php',
+							cache: false,
+                            data: g_data,
+                            success: function (data, status, xhr) {
+							   // delete command is executed.
+							   commit(true);
+							},
+							error: function(jqXHR, textStatus, errorThrown)
+							{
+								commit(false);
+							}
+						});							
+			   },	
+                updaterow: function (rowid, rowdata, commit) {
+			        // synchronize with the server - send update command
+                   //alert(rowid);
+					var g_data = "update=true&" + $.param(rowdata);
+					$.ajax({
+						dataType: 'json',
+						url: 'color_data.php',
+						data: g_data,
+						success: function (data, status, xhr) {
+							// update command is executed.
+							commit(true);
+						}
+					});		
+                }
+            };
+			/*
+			var rendergridrows = function (params) {
+                var data = generatedata(params.startindex, params.endindex);
+                return data;
+            }*/
+ 		    var g_color_dataadapter = new $.jqx.dataAdapter(g_color_source);
+           // initialize jqxGrid
+            $("#g_jqxgrid").jqxGrid(
+            {
+                width: 400,height:210,
+				//selectionmode: 'singlecell',
+                source: g_color_dataadapter,
+                theme: theme,
+				ready: function () {
+                    $("#g_jqxgrid").jqxGrid('hidecolumn', 'color_id');
+                },
+				editable: true,
+				autoheight: false,
+				//pageable: true,
+                columnsresize: true,
+                sortable: true,
+				showfilterrow: true,
+                filterable: true,
+				//columnsresize: true,
+				//virtualmode: true,
+				/*rendergridrows: function(obj)
+				{
+					  return obj.data;     
+				},*/
+                columns: [
+                      {pinned: true, exportable: false, text: "", columntype: 'number', cellclassname: cssclass, cellsrenderer: numberrenderer, width: 20},
+					  { text: 'Color ID', editable: false, datafield: 'color_id', width: 100 },
+                      { text: 'Description', datafield: 'description', width: 354,align: 'center' },
+                      
+                  ]
+            });
+			$("#g_color_addrowbutton").jqxButton({ theme: theme });
+            $("#g_color_deleterowbutton").jqxButton({ theme: theme });
+            $("#g_color_updaterowbutton").jqxButton({ theme: theme });
+			$("#g_color_cancelrowbutton").jqxButton({ theme: theme });
+
+            // update row.
+			$("#g_color_updaterowbutton").bind('click', function () {
+				
+				$("#g_color_updaterowbutton").hide();
+				$("#g_color_addrowbutton").show();
+				$("#g_color_cancelrowbutton").show();
+				$("#g_test").show();			
+					
+            });
+			$("#g_color_cancelrowbutton").bind('click', function () {
+				
+				$("#g_color_updaterowbutton").show();
+				$("#g_color_addrowbutton").hide();
+				$("#g_color_cancelrowbutton").hide();
+				$("#g_test").val('');
+				$("#g_test").hide();			
+					
+            });
+
+            // create new row.
+            // create new row.
+            $("#g_color_addrowbutton").on('click', function () {
+               
+			   var textval=$("#g_test").val();
+			   if (textval=='')
+			   {
+			      alert('Please input description.');
+				  return false;
+			   }
+				var rowscount=0;
+				var data = "lastid=true";
+				$.ajax({
+                            dataType: 'json',
+                            url: 'color_data.php',
+                            data: data,
+							cache: false,
+                            success: function (data) {
+							   // insert command is executed.
+								if( data==null)
+									rowscount=1;
+								else
+								rowscount=parseInt(data[0].color_id)+1;
+								
+								var datarow = g_color_generaterow(rowscount);
+								$("#g_jqxgrid").jqxGrid('addrow', null, datarow);				
+								$("#g_test").val('');
+								$("#g_test").hide();
+								$("#g_color_updaterowbutton").show();
+								$("#g_color_addrowbutton").hide();
+								$("#g_color_cancelrowbutton").hide();
+							},
+							error: function(jqXHR, textStatus, errorThrown)
+							{
+								commit(false);
+							}
+						});
+            });
+
+            // delete row.
+            $("#g_color_deleterowbutton").bind('click', function () {
+                var selectedrowindex = $("#g_jqxgrid").jqxGrid('getselectedrowindex');
+          		var rowscount = $("#g_jqxgrid").jqxGrid('getdatainformation').rowscount;
+                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+				
+                    var id = $("#g_jqxgrid").jqxGrid('getrowid', selectedrowindex);
+                  
+				
+					$("#g_jqxgrid").jqxGrid('deleterow', id);
+                }
+            });
+
+
+            $("#g_jqxgrid").on("sort", function (event) {
+
+                var sortinformation = event.args.sortinformation;
+                var sortdirection = sortinformation.sortdirection.ascending ? "ascending" : "descending";
+                if (!sortinformation.sortdirection.ascending && !sortinformation.sortdirection.descending) {
+                    sortdirection = "null";
+                }
+
+            });
+		});
+//==============incoterms start=================================================
+				
+		var colorcnt = function (color_id,garment_token,garment_id) {
+               
+				var result;
+					$.ajax({
+						async:false,
+						type:"get",
+						url:"garment_detail_data.php",
+						data:{"coloridchk":true,"color_id":color_id,"garment_token":garment_token,"garment_id":garment_id},
+						dataType:"json",
+						success: function(data) {
+								rowscount=parseInt(data[0].cnt);
+
+							result = parseInt(rowscount);
+						}
+					});
+
+					return result;
+
+            }
+			
+		
+		$('#g_jqxgrid').on('rowdoubleclick', function (event) 
+		{
+			var args = event.args;
+			var row = args.rowindex;
+
+			//var data = $('#g_jqxgrid').jqxGrid('getrowdata', row);
+			var id = $("#g_jqxgrid").jqxGrid('getrowdata', row);
+			//alert(id.description);//(data.description);
+			//==================================================		
+				 var garment_token=$("#garment_token").val();
+				 alert($("#garment_token").val());
+				 var garment_id=$("#garment_id").val();
+			     var color_id=id.color_id;
+				 var description=id.description;
+			   
+				var rowscount=0;
+				
+				var samecnt=colorcnt(color_id,garment_token,garment_id);
+				
+					
+					//alert(samecnt);
+				if(samecnt>0)
+				{
+					alert('You have same color.');
+					return false;
+				}
+				var data = "lastid=true";
+				$.ajax({
+                            dataType: 'json',
+                            url: 'garment_detail_data.php',
+                            data: data,
+							cache: false,
+                            success: function (data) {
+							   // insert command is executed.
+								if( data==null)
+									rowscount=1;
+								else
+								rowscount=parseInt(data[0].garment_d_seq)+1;
+								
+								var datarow = garment_d_generaterow(rowscount,color_id,description);
+								$("#garment_jqxgrid").jqxGrid('addrow', null, datarow);				
+								/*$("#garment_d_addrowbutton").show();
+								$("#garment_d_saverowbutton").hide();
+								$("#garment_d_cancelrowbutton").hide();*/
+								
+							},
+							error: function(jqXHR, textStatus, errorThrown)
+							{
+								commit(false);
+							}
+						});
+			//===================================================
+		});
+		//-----------------------------------------------------------
+		/*var customer_location_generaterow = function (id) {
+                var row = {};
+               // var descriptionindex = Math.floor(Math.random() * firstNames.length);
+                //var lastnameindex = Math.floor(Math.random() * lastNames.length);
+               //alert(id);
+                row["location_seq"] = id;
+				row["company_id"] =jQuery("#companyid").val();
+				row["customer_id_chk"] ='Y';
+				row["location_id"] =jQuery("#locationid").val();
+				row["address1"] =jQuery("#address1").val();
+				row["address2"] =jQuery("#address2").val();
+				row["address2"] =jQuery("#address2").val();
+				row["country"] =jQuery("#country").val();
+				row["tel"] =jQuery("#tel").val();
+				row["user_id"] =jQuery("#user_id").val();
+				row["customer_token"] =jQuery("#customer_token").val();
+                return row;
+            }
+			*/
+		
+		var garment_location_source =
+            {
+                 datatype: "json",
+                 datafields: [
+					 { name: 'location_seq', type: 'number'},
+					 { name: 'company_id', type: 'string'},
+					 { name: 'location_id', type: 'string'},
+					 { name: 'customer_id_chk', type: 'string'},
+					 { name: 'address1', type: 'string'},
+					 { name: 'address2', type: 'string'},
+					 { name: 'address2', type: 'string'},
+					 { name: 'country', type: 'string'},
+					 { name: 'tel', type: 'string'},
+					 { name: 'user_id', type: 'string'},
+					 { name: 'customer_token', type: 'string'},
+					 
+                ],
+				id: 'location_seq',
+                url: 'location_data.php',    
+				root: 'Rows',
+				cache: false,
+				beforeprocessing: function(data)
+				{		
+					
+					garment_location_source.totalrecords = data[0].TotalRows;
+					//alert(source.totalrecords);
+				},
+				updaterow: function (rowid, rowdata) {
+                    // synchronize with the server - send update command   
+                }
+            };
+		 var garment_dataAdapter = new $.jqx.dataAdapter(garment_location_source);
+		
+		 // initialize jqxGrid
+            $("#jqxdropdownbutton").jqxDropDownButton({ width: 150, height: 25, theme: theme });
+            $("#customer_location_jqxgrid").jqxGrid(
+            {
+                width: 1200,height:200,
+				//selectionmode: 'singlecell',
+                source: garment_dataAdapter,
+                theme: theme,
+				ready: function () {
+                    $("#customer_location_jqxgrid").jqxGrid('hidecolumn', 'location_seq');
+					 $("#customer_location_jqxgrid").jqxGrid('hidecolumn', 'customer_id_chk');
+					$("#customer_location_jqxgrid").jqxGrid('hidecolumn', 'user_id');
+					$("#customer_location_jqxgrid").jqxGrid('hidecolumn', 'customer_token');
+                },
+				editable: false,
+				autoheight: false,
+				//pageable: true,
+                columnsresize: true,
+                columnsreorder: true,
+				sortable: true,
+				columns: [
+					  {pinned: true, exportable: false, text: "", columntype: 'number', cellclassname: cssclass, cellsrenderer: numberrenderer },	
+                      { text: 'location seq', editable: false, datafield: 'location_seq', width: 20 },
+					  { text: 'customer_id_chk', editable: false, datafield: 'customer_id_chk', width: 100,align: 'center' },
+					  { text: 'ID', editable: true, datafield: 'company_id', width: 100,align: 'center' },
+						{ text: 'Location ID', editable: true, datafield: 'location_id', width: 100,align: 'center' },	
+					  { text: 'Address1', editable: true, datafield: 'address1', width: 250,align: 'center' },
+					  { text: 'Address2', editable: true, datafield: 'address2', width: 250,align: 'center' },	
+					  { text: 'Address3', editable: true, datafield: 'address3', width: 250,align: 'center' },
+					  { text: 'Country', editable: true, datafield: 'country', width: 150,align: 'center' },
+					  { text: 'tel', editable: true,datafield: 'tel', width:150,align: 'center' },
+					  { text: 'user_id', datafield: 'user_id', width:66,align: 'center' }, 	
+					  { text: 'customer_token', datafield: 'customer_token', width:66,align: 'center' },
+                      
+                  ]
+            });
+			$("#customer_location_jqxgrid").jqxGrid('selectrow', 0);
+            	
+			
+			$("#customer_location_jqxgrid").on('rowselect', function (event) {
+                var args = event.args;
+                alert(args.rowindex);
+				var row = $("#customer_location_jqxgrid").jqxGrid('getrowdata', args.rowindex);
+               //alert(row.location_id);
+				var dropDownContent = '<div style="position: relative; margin-left: 3px; margin-top: 5px;">' + row.company_id+ '</div>';
+                $("#jqxdropdownbutton").jqxDropDownButton('setContent', dropDownContent);
+				$("#location_id").val(row.location_id);
+				//$("#jqxgrid").hide();
+				
+            });
+			
+			$("#jqxdropdownbutton").on('click', function (event) {
+				//alert('xx');
+				$("#customer_location_jqxgrid").jqxGrid('focus');
+				$("#customer_location_jqxgrid").show();   
+            });
+			$("#jqxdropdownbutton").on('.hover', function (event) {
+				$("#jqxdropdownbutton").focus();   
+            });
+
+            	
+            
+		//-----------------------------------------------------------
+
+	});
+    </script>
+	<style type="text/css">
+        .green, .jqx-widget .green {
+            color: black;
+            background-color: rgb(218, 226, 196);
+        }
+		.text-input
+        {
+            height: 21px;
+            width: 200px;
+        }
+		.text-input1
+        {
+            height: 21px;
+            width: 400px;
+        }
+		.select-style
+        {
+            height: 21px;
+            width: 150px;
+        }
+        .register-table
+        {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .register-table td, 
+        .register-table tr
+        {
+            margin: 0px;
+            padding: 2px;
+            border-spacing: 0px;
+            border-collapse: collapse;
+            font-family: Verdana;
+            font-size: 12px;
+        }
+        h3 
+        {
+            display: inline-block;
+            margin: 0px;
+        }
+    </style>
+
+	<div style="margin-left:20px">
+	<input type="hidden" id="garment_newcheck" value="<?php echo $garment_newcheck?>">
+	<input type="hidden" id="garment_savesucess" value="<?php echo $garment_savesucess?>">
+	<input type="hidden" id="garment_token" value="<?php echo $garment_token?>">
+	<input type="hidden" value="<?php echo $garment_detail_cnt?>" id="garment_detail_cnt" />
+	<input type="hidden" value="<?php echo $user_id?>" id="user_id" />
+	<input type="hidden" value="<?php echo $active?>" id="active" />
+	<div >
+		<div >
+			<label style="font-size:20px">Garment Data</label>
+		</div>
+		<div>
+		<table class="register-table" style="width:1200px;">
+		<tr>
+		<td>
+				<div style="margin: 6px;">
+					<input id="garment_listrowbutton" type="button" value="List" style="margin-right: 20px;float: left;"/>
+					<input id="garment_addrowbutton" type="button" value=" New " style="margin-right: 20px;float: left;"/>
+					<input id="garment_saverowbutton" type="button" value=" Save " style="margin-right: 20px;float: left;" />
+					<input id="garment_editrowbutton" type="button" value=" Edit " style="margin-right: 20px;float: left;" />
+					<input id="garment_deleterowbutton" type="button" value="Delete" style="margin-right: 50px;float: left;" />
+				</div>
+		</td>
+		<td>
+				<div  >
+					<input type="button" value="Note" id="showWindowButton"/>
+				</div>
+		</td>
+		<td>
+				<div >
+				<input type="button" value="File" id="savefile" onclick="elfinder('<?php echo $garment_id?>')"/>
+				</div>
+		</td>
+		<td>
+				
+				<div id='jqxCheckBox10' >
+				<?php if($active=="N")
+					echo '<span>Inactive</span>';
+				    else
+					echo '<span>Active</span>';
+					?>
+				</div>
+		</td>
+		</tr>
+		</table>
+		</div>
+
+		 <div id="register">
+			<div style="overflow: hidden;">
+					<form id="garmentForm" action="./">
+					<table class="register-table">
+						<tr>
+							<td valign="top" >Category</td>
+							<td valign="top" >Garment ID</td>
+							<td valign="top" >Description</td>
+							<td valign="top" >Size</td>
+						</tr>
+							<td valign="top">
+							<select  id="category_id" class="select-style">
+							<?php 
+								$query = "SELECT  * FROM category ";
+
+								$result = mysql_query($query) or die("SQL Error 1: " . mysql_error());
+			
+								while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+								if ($payto_location_id==$row['category_id'])
+								echo "<option value=\"".$row['category_id']."\" selected>".$row['description']."</option>";
+								else
+								echo "<option value=\"".$row['category_id']."\" >".$row['description']."</option>";
+								}
+								
+								?>
+							</select>
+							</td>
+							<td valign="top">
+							<input type="hidden" id="garment_seq" value="<?php echo $garment_seq?>" class="text-input" />
+							<input type="text" id="garment_id"  class="text-input" value="<?php echo $garment_id?>" /></td>
+							</td>
+							<td valign="top"><input type="text" id="description" value="<?php echo $description?>" class="text-input1" /></td>
+							<td valign="top">
+							<select  id="size_id" class="select-style">
+							<?php 
+								$query = "SELECT  * FROM size";
+
+								$result = mysql_query($query) or die("SQL Error 1: " . mysql_error());
+			
+								while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+								$s1=(!empty($row['s1']))?$row['s1']:null;
+								$s2=(!empty($row['s2']))?",".$row['s2']:null;
+								$s3=(!empty($row['s3']))?",".$row['s3']:null;
+								$s4=(!empty($row['s3']))?",".$row['s4']:null;
+								$s5=(!empty($row['s5']))?",".$row['s5']:null;
+								$s6=(!empty($row['s6']))?",".$row['s6']:null;
+								$s7=(!empty($row['s7']))?",".$row['s7']:null;
+								$s8=(!empty($row['s8']))?",".$row['s8']:null;
+								$s9=(!empty($row['s9']))?",".$row['s9']:null;
+								$s10=(!empty($row['s10']))?",".$row['s10']:null;
+								$s11=(!empty($row['s11']))?",".$row['s11']:null;
+								$s12=(!empty($row['s12']))?",".$row['s12']:null;
+								if ($size_id==$row['size_id'])
+								echo "<option value=\"".$row['size_id']."\" selected>".$s1.$s2.$s3.$s4.$s5.$s6.$s7.$s8.$s9.$s10.$s11.$s12."</option>";
+								else
+								echo "<option value=\"".$row['size_id']."\" >".$s1.$s2.$s3.$s4.$s5.$s6.$s7.$s8.$s9.$s10.$s11.$s12."</option>";
+								}
+								
+								?>
+							</select>
+							</td>
+						</tr>
+
+					</table>
+					</form>
+			</div>	
+		</div>
+	</div>
+	<div>
+		<table class="register-table" style="width:1200px;">
+		<tr>
+		<td colspan=5>
+		Inventory Location		
+		</td>
+		<td >
+		Cost From Costing
+		</td>
+		</tr>
+		
+		<tr>
+		<td>
+				<input id="garment_d_addrowbutton" type="button" value=" Add " style="margin-right: 20px;"/>
+		</td>
+		<td>
+				<input id="garment_d_deleterowbutton" type="button" value="Delete" />			
+		</td>
+		<td>
+		<div id="jqxdropdownbutton">
+            <div style="border: none;" id="customer_location_jqxgrid">
+            </div>
+        </div>
+		</td>
+		<td>
+		<input type="text" id="location_name" value="" class="text-input1" >		
+		</td>
+		<td>
+		<input type="text" id="location_id" value="<?php echo $location_id?>" class="text-input1" >
+		</td>
+		<td>
+		<div id='jqxCheckBox11' >
+			<span></span>
+		</div>		
+		</td>
+		
+		</tr>
+		</table>
+	</div>
+	<div style="width: 100%;  " id="mainDemoContainer">
+            <div id="window">
+                <div id="windowHeader">
+                    <span>
+                        Note
+                    </span>
+                </div>
+                <div style="overflow: hidden;" id="windowContent">
+					<div>
+					<textarea id="note" rows="12" cols="59">	
+                            <?php echo $note?>
+                     </textarea>
+					 <!--<iframe src="customcolumn.htm "frameborder="0" scrolling="auto" width="500" height="180" marginwidth="5" marginheight="5" ></iframe>-->
+					 </div>
+					<!--<div style="margin-right: 20px;float: left;">
+					<input type="button" id="notesave" value="Save">
+					</div>-->
+					<div >
+					<input type="button" id="noteclose" value="Close">
+					</div>
+				</div>
+			</div>
+			<!------------------------------------------------------------------------>
+				<div id="g_window0">
+
+						<div style="border: 1px solid #e5e5e5; width:400px;">
+							<div class="jqx-grid-column-header jqx-grid-column-header-bootstrap jqx-widget-header jqx-widget-header-bootstrap">
+								<label style="margin-left: 10px;">Color</label>
+							</div>
+							<div >
+									<div style="margin: 6px;">
+										<input id="g_color_updaterowbutton" type="button" value=" New " style="margin-right: 20px;"/>
+										<input id="g_color_cancelrowbutton" type="button" value="Cancel" style="display:none;margin-right: 20px;"/>
+										<input id="g_color_addrowbutton" type="button" value=" Save " style="display:none;margin-right: 20px;" />
+										<input id="g_color_deleterowbutton" type="button" value="Delete" />
+									</div>
+									
+							 </div>
+						 
+							 <div>
+							<input  type="text" id="g_test" value="" style="display:none;width:350px;margin: 6px;margin-left: 26px;">
+							</div>
+						</div>
+						<div id="g_jqxgrid">
+						</div>
+					</div>
+				</div>
+<!------------------------------------------------------------------------>
+
+
+
+		 </div>
+
+	
+	<table>
+	<tr>
+	<td>
+	<div id="garment_jqxgrid">
+	</div>
+	</td>
+	<td>
+	<img src="./img/garment/sample.jpg" width="400" height="450">
+	</td>
+	</tr>
+	</table>
+<div>

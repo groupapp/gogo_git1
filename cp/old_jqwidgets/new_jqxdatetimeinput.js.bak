@@ -1,0 +1,551 @@
+/*
+jQWidgets v2.9.3 (2013-July-11)
+Copyright (c) 2011-2013 jQWidgets.
+License: http://jqwidgets.com/license/
+*/
+(function (a) {
+a.jqx.jqxWidget("jqxDateTimeInput", "", {});
+a.extend(a.jqx._jqxDateTimeInput.prototype, {
+        defineInstance: function () {
+            if (this.value == undefined) {
+                this.value = a.jqx._jqxDateTimeInput.getDateTime(new Date());
+                this.value._setHours(0);
+                this.value._setMinutes(0);
+                this.value._setSeconds(0);
+                this.value._setMilliseconds(0)
+            }
+            if (this.minDate == undefined) {
+                this.minDate = a.jqx._jqxDateTimeInput.getDateTime(new Date());
+                this.minDate._setYear(1900);
+                this.minDate._setMonth(1);
+                this.minDate._setDay(1);
+                this.minDate._setHours(1);
+                this.minDate._setMinutes(1);
+                this.minDate._setSeconds(1);
+                this.minDate._setMilliseconds(1)
+            }
+            this.defaultMinDate = this.minDate;
+            if (this.maxDate == undefined) {
+                this.maxDate = a.jqx._jqxDateTimeInput.getDateTime(new Date());
+                this.maxDate._setYear(2100);
+                this.maxDate._setMonth(1);
+                this.maxDate._setDay(1);
+                this.maxDate._setHours(1);
+                this.maxDate._setMinutes(1);
+                this.maxDate._setSeconds(1);
+                this.maxDate._setMilliseconds(1)
+            }
+            this.defaultMaxDate = this.maxDate;
+            this.min = new Date(1900, 0, 1);
+            this.max = new Date(2100, 0, 1);
+            if (this.firstDayOfWeek == undefined) {
+                this.firstDayOfWeek = 0
+            }
+            if (this.showWeekNumbers == undefined) {
+                this.showWeekNumbers = false
+            }
+            this.cookies = false;
+            this.cookieoptions = null;
+            this.showFooter = false;
+            if (this.formatString === undefined) {
+                this.formatString = "dd/MM/yyyy"
+            }
+            if (this.width === undefined) {
+                this.width = null
+            }
+            if (this.height === undefined) {
+                this.height = null
+            }
+            if (this.dayNameFormat === undefined) {
+                this.dayNameFormat = "firstTwoLetters"
+            }
+            if (this.textAlign === undefined) {
+                this.textAlign = "left"
+            }
+            if (this.readonly === undefined) {
+                this.readonly = false
+            }
+            if (this.culture === undefined) {
+                this.culture = "default"
+            }
+            this.activeEditor = this.activeEditor || null;
+            if (this.showCalendarButton === undefined) {
+                this.showCalendarButton = true
+            }
+            if (this.openDelay == undefined) {
+                this.openDelay = 250
+            }
+            if (this.closeDelay === undefined) {
+                this.closeDelay = 300
+            }
+            if (this.closeCalendarAfterSelection === undefined) {
+                this.closeCalendarAfterSelection = true
+            }
+            this.isEditing = false;
+            this.enableBrowserBoundsDetection = false;
+            this.dropDownHorizontalAlignment = "left";
+            this.enableAbsoluteSelection = false;
+            this.disabled = false;
+            this.buttonSize = 18;
+            this.animationType = "slide";
+            this.dropDownWidth = "205px";
+            this.dropDownHeight = "205px";
+            this.selectionMode = "default";
+            this.rtl = false;
+            this._editor = false;
+            this.todayString = "Today";
+            this.clearString = "Clear";
+            this.popupZIndex = 100000;
+            this.allowNullDate = true;
+            this.allowKeyboardDelete = true;
+            this.localization = {
+                backString: "Back",
+                forwardString: "Forward",
+                todayString: "Today",
+                clearString: "Clear",
+                calendar: {
+                    name: "Gregorian_USEnglish",
+                    "/": "/",
+                    ":": ":",
+                    firstDay: 0,
+                    days: {
+                        names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                        namesAbbr: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                        namesShort: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+                    },
+                    months: {
+                        names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""],
+                        namesAbbr: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""]
+                    },
+                    AM: ["AM", "am", "AM"],
+                    PM: ["PM", "pm", "PM"],
+                    eras: [{
+                        name: "A.D.",
+                        start: null,
+                        offset: 0
+                    }],
+                    twoDigitYearMax: 2029,
+                    patterns: {
+                        d: "M/d/yyyy",
+                        D: "dddd, MMMM dd, yyyy",
+                        t: "h:mm tt",
+                        T: "h:mm:ss tt",
+                        f: "dddd, MMMM dd, yyyy h:mm tt",
+                        F: "dddd, MMMM dd, yyyy h:mm:ss tt",
+                        M: "MMMM dd",
+                        Y: "yyyy MMMM",
+                        S: "yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss",
+                        ISO: "yyyy-MM-dd hh:mm:ss"
+                    }
+                }
+            };
+            this.events = ["valuechanged", "textchanged", "mousedown", "mouseup", "keydown", "keyup", "keypress", "open", "close", "change"];
+            this.aria = {
+                "aria-valuenow": {
+                    name: "getDate",
+                    type: "date"
+                },
+                "aria-valuetext": {
+                    name: "getText",
+                    type: "string"
+                },
+                "aria-valuemin": {
+                    name: "min",
+                    type: "date"
+                },
+                "aria-valuemax": {
+                    name: "max",
+                    type: "date"
+                },
+                "aria-disabled": {
+                    name: "disabled",
+                    type: "boolean"
+                }
+            }
+        },
+        createInstance: function (c) {
+            var e = "";
+            if (!this.host.jqxCalendar) {
+                throw new Error("jqxDateTimeInput: Missing reference to jqxcalendar.js.")
+            }
+            if (this.host.attr("value")) {
+                e = true;
+                var g = this.host.attr("value");
+                if (this.selectionMode != "range") {
+                    var b = new Date(g);
+                    if (b != undefined && !isNaN(b)) {
+                        this.value = a.jqx._jqxDateTimeInput.getDateTime(b)
+                    }
+                }
+            }
+            if (this.value != null && this.value instanceof Date) {
+                this.value = a.jqx._jqxDateTimeInput.getDateTime(this.value)
+            } else {
+                if (this.value != null && typeof (this.value) == "string") {
+                    var b = new Date(this.value);
+                    if (b != undefined && !isNaN(b)) {
+                        this.value = a.jqx._jqxDateTimeInput.getDateTime(b)
+                    }
+                }
+            }
+            this.host.attr("data-role", "input");
+            this.render();
+            a.jqx.aria(this);
+            if (this.getDate() != null) {
+                a.jqx.aria(this, "aria-label", "Current focused date is " + this.getDate().toLocaleString())
+            } else {
+                a.jqx.aria(this, "aria-label", "Current focused date is Null")
+            } if (this.minDate !== this.defaultMinDate) {
+                this.min = this.minDate
+            }
+            if (this.maxDate !== this.defaultMaxDate) {
+                this.max = this.maxDate
+            }
+            this.setMaxDate(this.max, false);
+            this.setMinDate(this.min, false);
+            if (this.selectionMode == "range") {
+                if (e) {
+                    var g = this.host.attr("value");
+                    var f = g.substring(0, g.indexOf("-"));
+                    var d = g.substring(g.indexOf("-") + 1);
+                    var j = new Date(f);
+                    var h = new Date(d);
+                    if (j != undefined && !isNaN(j)) {
+                        if (h != undefined && !isNaN(h)) {
+                            this.setRange(j, h)
+                        }
+                    }
+                } else {
+                    if (this.getDate() != null) {
+                        this.setRange(this.getDate(), this.getDate())
+                    }
+                }
+            }
+        },
+        _format: ...true
+    } else {
+        return false
+    }
+}, getDateTimeItem: function () {
+    return this.item
+}
+})
+})(jQuery);
+(function (a) {
+    a.jqx._jqxDateTimeInput.DisabledEditor = {};
+    a.extend(a.jqx._jqxDateTimeInput.DisabledEditor, {
+        _create: function (g, c, f, b, e, d) {
+            this.format = g;
+            this.value = -1;
+            this.item = e;
+            this.that = d;
+            return this
+        },
+        textValue: function () {
+            return ""
+        },
+        insert: function (b) {
+            return false
+        },
+        deleteValue: function () {
+            return false
+        },
+        increaseValue: function () {
+            return false
+        },
+        decreaseValue: function () {
+            return false
+        },
+        getDateTimeItem: function () {
+            return this.item
+        }
+    })
+})(jQuery);
+(function (a) {
+    a.jqx._jqxDateTimeInput.AmPmEditor = {};
+    a.extend(a.jqx._jqxDateTimeInput.AmPmEditor, {
+        _createAmPmEditor: function (g, c, f, b, e, d) {
+            this.format = g;
+            this.value = c;
+            this.amString = f;
+            this.pmString = b;
+            this.item = e;
+            this.that = d;
+            if (f == b) {
+                this.amString = "<" + f;
+                this.pmString = ">" + b
+            }
+            return this
+        },
+        textValue: function () {
+            var b = this.amString;
+            if (this.value != 0) {
+                b = this.pmString
+            }
+            if (this.format.length == 1 && b.length > 1) {
+                b = b.substring(0, 1)
+            }
+            return b
+        },
+        insert: function (f) {
+            var d = f.toString();
+            if (d.Length == 0) {
+                return this.deleteValue()
+            }
+            var c = false;
+            if (this.amString.Length > 0 && this.pmString.Length > 0) {
+                var g = amString[0];
+                var b = d[0];
+                var e = pmString[0];
+                if (g.toString() == b.toString()) {
+                    this.value = 0;
+                    c = true
+                } else {
+                    if (e.toString() == b.toString()) {
+                        this.value = 1;
+                        c = true
+                    }
+                }
+            } else {
+                if (this.pmString.Length > 0) {
+                    this.value = 1;
+                    c = true
+                } else {
+                    if (this.amString.Length > 0) {
+                        this.value = 0;
+                        c = true
+                    }
+                }
+            }
+            return c
+        },
+        deleteValue: function () {
+            var b = true;
+            if (this.amString.Length == 0 && this.pmString.Length != 0) {
+                if (this.value == 0) {
+                    return false
+                }
+                this.value = 0
+            } else {
+                if (this.value == 1) {
+                    return false
+                }
+                this.value = 1
+            }
+            return b
+        },
+        increaseValue: function () {
+            this.value = 1 - this.value;
+            return true
+        },
+        decreaseValue: function () {
+            this.increaseValue();
+            return true
+        },
+        getDateTimeItem: function () {
+            return this.item
+        }
+    })
+})(jQuery);
+(function (a) {
+    a.jqx._jqxDateTimeInput.getDateTime = function (c) {
+        var b = {
+            dateTime: new Date(c),
+            daysPer4Years: 1461,
+            daysPerYear: 365,
+            daysToMonth365: {
+                0: 0,
+                1: 31,
+                2: 59,
+                3: 90,
+                4: 120,
+                5: 151,
+                6: 181,
+                7: 212,
+                8: 243,
+                9: 273,
+                10: 304,
+                11: 334,
+                12: 365
+            },
+            daysToMonth366: {
+                0: 0,
+                1: 31,
+                2: 60,
+                3: 91,
+                4: 121,
+                5: 152,
+                6: 182,
+                7: 213,
+                8: 244,
+                9: 274,
+                10: 305,
+                11: 335,
+                12: 366
+            },
+            maxValue: 3155378976000000000,
+            millisPerDay: 86400000,
+            millisPerHour: 3600000,
+            millisPerMinute: 60000,
+            millisPerSecond: 1000,
+            minTicks: 0,
+            minValue: 0,
+            ticksPerDay: 864000000000,
+            ticksPerHour: 36000000000,
+            ticksPerMillisecond: 10000,
+            ticksPerMinute: 600000000,
+            ticksPerSecond: 10000000,
+            hour: c.getHours(),
+            minute: c.getMinutes(),
+            day: c.getDate(),
+            second: c.getSeconds(),
+            month: 1 + c.getMonth(),
+            year: c.getFullYear(),
+            millisecond: c.getMilliseconds(),
+            dayOfWeek: c.getDay(),
+            isWeekend: function (d) {
+                if (d == undefined || d == null) {
+                    d = this.dateTime
+                }
+                var e = d.getDay() % 6 == 0;
+                return e
+            },
+            dayOfYear: function (e) {
+                if (e == undefined || e == null) {
+                    e = this.dateTime
+                }
+                var d = new Date(e.getFullYear(), 0, 1);
+                return Math.ceil((e - d) / 86400000)
+            },
+            _setDay: function (d) {
+                if (d == undefined || d == null) {
+                    d = 0
+                }
+                this.dateTime.setDate(d);
+                this.day = this.dateTime.getDate()
+            },
+            _setMonth: function (d) {
+                if (d == undefined || d == null) {
+                    d = 0
+                }
+                this.dateTime.setMonth(d - 1);
+                this.month = 1 + this.dateTime.getMonth()
+            },
+            _setYear: function (d) {
+                if (d == undefined || d == null) {
+                    d = 0
+                }
+                this.dateTime.setFullYear(d);
+                this.year = this.dateTime.getFullYear()
+            },
+            _setHours: function (d) {
+                if (d == undefined || d == null) {
+                    d = 0
+                }
+                this.dateTime.setHours(d);
+                this.hour = this.dateTime.getHours()
+            },
+            _setMinutes: function (d) {
+                if (d == undefined || d == null) {
+                    d = 0
+                }
+                this.dateTime.setMinutes(d);
+                this.minute = this.dateTime.getMinutes()
+            },
+            _setSeconds: function (d) {
+                if (d == undefined || d == null) {
+                    d = 0
+                }
+                this.dateTime.setSeconds(d);
+                this.second = this.dateTime.getSeconds()
+            },
+            _setMilliseconds: function (d) {
+                if (d == undefined || d == null) {
+                    d = 0
+                }
+                this.dateTime.setMilliseconds(d);
+                this.millisecond = this.dateTime.getMilliseconds()
+            },
+            _addDays: function (e) {
+                var d = this.dateTime;
+                d.setDate(d.getDate() + e);
+                return d
+            },
+            _addWeeks: function (e) {
+                var d = this.dateTime;
+                d.setDate(d.getDate() + 7 * e);
+                return d
+            },
+            _addMonths: function (e) {
+                var d = this.dateTime;
+                d.setMonth(d.getMonth() + e);
+                return d
+            },
+            _addYears: function (e) {
+                var d = this.dateTime;
+                d.setFullYear(d.getFullYear() + e);
+                return d
+            },
+            _addHours: function (e) {
+                var d = this.dateTime;
+                d.setHours(d.getHours() + e);
+                return d
+            },
+            _addMinutes: function (e) {
+                var d = this.dateTime;
+                d.setMinutes(d.getMinutes() + e);
+                return d
+            },
+            _addSeconds: function (e) {
+                var d = this.dateTime;
+                d.setSeconds(d.getSeconds() + e);
+                return d
+            },
+            _addMilliseconds: function (e) {
+                var d = this.dateTime;
+                d.setMilliseconds(d.getMilliseconds() + e);
+                return d
+            },
+            _isLeapYear: function (d) {
+                if ((d < 1) || (d > 9999)) {
+                    throw "invalid year"
+                }
+                if ((d % 4) != 0) {
+                    return false
+                }
+                if ((d % 100) == 0) {
+                    return ((d % 400) == 0)
+                }
+                return true
+            },
+            _dateToTicks: function (f, h, e) {
+                if (((f >= 1) && (f <= 9999)) && ((h >= 1) && (h <= 12))) {
+                    var d = this._isLeapYear(f) ? this.daysToMonth366 : this.daysToMonth365;
+                    if ((e >= 1) && (e <= (d[h] - d[h - 1]))) {
+                        var f = f - 1;
+                        var g = ((((((f * 365) + (f / 4)) - (f / 100)) + (f / 400)) + d[h - 1]) + e) - 1;
+                        return (g * 864000000000)
+                    }
+                }
+            },
+            _daysInMonth: function (e, f) {
+                if ((f < 1) || (f > 12)) {
+                    throw ("Invalid month.")
+                }
+                var d = this._isLeapYear(e) ? this.daysToMonth366 : this.daysToMonth365;
+                return (d[f] - d[f - 1])
+            },
+            _timeToTicks: function (d, g, e) {
+                var f = ((d * 3600) + (g * 60)) + e;
+                return (f * 10000000)
+            },
+            _equalDate: function (d) {
+                if (this.year == d.getFullYear() && this.day == d.getDate() && this.month == d.getMonth() + 1) {
+                    return true
+                }
+                return false
+            }
+        };
+        return b
+    }
+})(jQuery);

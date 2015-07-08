@@ -1,0 +1,55 @@
+.signal_green {
+margin: 0px 0px 0px 3px;
+padding: 1px 4px;
+border: 1px solid #000000;
+font-size: 16px;
+color: #ffffff;
+background-color: #66CC33;
+border-radius: 14px;
+display: inline-block;
+}
+
+.signal_yellow {
+margin: 0px 0px 0px 3px;
+padding: 1px 4px;
+border: 1px solid #000000;
+font-size: 16px;
+color: #000000;
+background-color: #F4FC47;
+border-radius: 14px;
+display: inline-block;
+}
+
+
+.signal_green {
+margin: 0px 0px 0px 3px;
+padding: 1px 4px;
+border: 1px solid #000000;
+font-size: 16px;
+color: #000000;
+background-color: #55FC47;
+border-radius: 14px;
+display: inline-block;
+}
+
+.signal_red {
+margin: 0px 0px 0px 3px;
+padding: 1px 4px;
+border: 1px solid #000000;
+font-size: 16px;
+color: #FFFFFF;
+background-color: #FD2626;
+border-radius: 14px;
+display: inline-block;
+}
+
+.signal_grey {
+margin: 0px 0px 0px 3px;
+padding: 1px 4px;
+border: 1px solid #000000;
+font-size: 16px;
+color: #FFFFFF;
+background-color: #868484;
+border-radius: 14px;
+display: inline-block;
+}

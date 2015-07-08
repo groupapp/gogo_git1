@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link href="@Url.Content("~/css/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/jquery.gritter.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/app.css")" rel="stylesheet" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+                  <script src="@Url.Content("js/html5shiv.js")"></script>
+                <![endif]-->
+</head>
+<body>
+    <div class="container">
+        <div class="masthead">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <ul class="nav">
+                            <li class="active"><a href="@Url.Action("Index")">Default - Full Plugin</a> </li>
+                            <li><a href="@Url.Action("HTML4")">HTML4 - Oldschool</a> </li>
+                            <li><a href="@Url.Action("NoWM")">No Watermark and Thumbnails</a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="intro">
+            <h1>HTML5 &amp; AJAX UPLOADER</h1>
+            <div class="span10 offset2">
+                <dl class="dl-horizontal">
+                    <dt>Pure JS</dt>
+                    <dd>no out-of-box JS Framework used</dd>
+                    <dt>Flexible</dt>
+                    <dd>can be used in any app,website easy to implement</dd>
+                    <dt>Customizable</dt>
+                    <dd>can be customized by user</dd>
+                </dl>
+            </div>
+            <a class="btn btn-large btn-success tryit" href="#dropper">Try it!</a>
+        </div>
+        @RenderBody()
+        <hr />
+        <div class="footer">
+            <p>
+                &copy; tQera 2013
+            </p>
+        </div>
+    </div>
+    <script type="text/javascript" src="@Url.Content("~/js/jquery-1.9.1.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/js/bootstrap.js")"></script>
+    <script src="@Url.Content("~/js/jquery.gritter.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/tQera.Uploader.enc.js")"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

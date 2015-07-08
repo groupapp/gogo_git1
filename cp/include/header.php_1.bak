@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<?php 
+	$position	= $_GET['position'];
+	//echo 'xx'.$position;
+	if ($position=="")
+		$title="";
+    else
+		$title="EB-".$position;
+	?>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="keywords" content="apparel,wizard,account,web">
+	<meta name="description" content="Apparel Wizard">
+	<title><?php echo $title?></title>
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" href="/jqwidgets/styles/jqx.bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.black.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.classic.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.darkblue.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.fresh.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.highcontrast.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.metro.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.office.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.shinyblack.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.summer.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.ui-darkness.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.ui-le-frog.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.ui-lightness.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.ui-overcast.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.ui-redmond.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.ui-smoothness.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.ui-start.css" type="text/css" />
+	<link rel="stylesheet" href="/jqwidgets/styles/jqx.ui-sunny.css" type="text/css" />
+
+	<script type="text/javascript" src="/scripts/jquery-1.10.2.min.js"></script>  
+	<script type="text/javascript" src="/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxdropdownlist.js"></script>
+	
+	 <script type="text/javascript" src="/jqwidgets/jqxcombobox.js"></script>
+	
+	 <script type="text/javascript" src="/jqwidgets/jqxgrid.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxgrid.sort.js"></script>	
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.filter.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxpanel.js"></script>   
+    <script type="text/javascript" src="/jqwidgets/jqxdata.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxgrid.columnsresize.js"></script>
+	 <script type="text/javascript" src="/jqwidgets/jqxgrid.columnsreorder.js"></script> 
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.selection.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.edit.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.pager.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxtooltip.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxvalidator.js"></script> 
+    <script type="text/javascript" src="/jqwidgets/jqxinput.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxdatetimeinput.js"></script>
+	 <script type="text/javascript" src="/jqwidgets/jqxdropdownbutton.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxcalendar.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxcheckbox.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxlistbox.js"></script>
+	 <script type="text/javascript" src="/jqwidgets/jqxwindow.js"></script>
+<script type="text/javascript" src="/jqwidgets/jqxnumberinput.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxgrid.aggregates.js"></script>
+	 <script type="text/javascript" src="/jqwidgets/jqxdata.export.js"></script> 
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.export.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxgrid.selection.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxexpander.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxdragdrop.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxgrid.grouping.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxtabs.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxradiobutton.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxgrid.storage.js"></script>
+    
+	<script type="text/javascript" src="/jqwidgets/jqxtabs.js"></script>
+	
+</head>
+<body >

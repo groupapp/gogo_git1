@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Basic Demo</title>
+		<link href="http://pureuploader.10oy.com//css/flat-ui.css" rel="stylesheet" />
+    <link href="http://pureuploader.10oy.com//css/app.css" rel="stylesheet" />
+        
+    </head>
+    <body>
+		
+        <form id="dropper" method="post" enctype="multipart/form-data" action="imgup.php">
+		<table>
+		<tr>
+		<td>
+		   <input type="FILE" name="fileInput" id="fileInput" value=""  style="width:100px;height:100px;border: 3px dashed #ccc;"/> <!--multiple-->
+            <div id="dropPlace1" style="display:block"></div>
+           
+            <div id="imageHolder1"></div>
+		</td>
+		<td>
+		   <input type="FILE" name="fileInput1" id="fileInput1" value=""  style="width:100px;height:100px;border: 3px dashed #ccc;"/> <!--multiple-->
+            <div id="dropPlace2" style="display:block"></div>
+           
+            <div id="imageHolder2"></div>
+		</td>
+		
+		</tr>
+		<tr>
+		<td colspan="2">	
+			 <p><button type="submit">Start Upload</button></p>
+        </td>
+		</tr>
+		</table>
+		</form>
+		<script type="text/javascript" src="http://pureuploader.10oy.com//js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://pureuploader.10oy.com//js/flat-ui.js"></script>
+    <script src="http://pureuploader.10oy.com//Scripts/Pure.Uploader.js"></script><script type="text/javascript">
+   //----------------------------------------------------------------------------------------------------------------     
+		var d1 = new PureUploader(
+        {
+           name: "d1",
+		   drop: true, // to support drag&drop
+            //form: document.getElementById("dropper"), // the form element's id
+            fileInput: document.getElementById("fileInput"), // the file type input's id
+            imageHolder: document.getElementById("imageHolder1"), // the div's id for listing of uploading files
+ 
+            dropPlace: document.getElementById("dropPlace1"), // the div's id that images gonna drop onto
+            dragHoverClass: "drop_hover", // when the state of hover of the dropPlace div this class would approved
+ 
+			icon_path: "FileIcons/",
+			icon_default: "FileIcons/_blank.png",
+			
+	// Thumbnail resolutions will being used in listing of uploads and thumbnails that would create if the setting is on
+            image_thumb_width: 64, 
+            image_thumb_height: 64,
+			image_thumb: true,
+ 
+	// File filter that which files do you want to uploaded with this plugin enter these like this png|jpg|rar|doc etc...
+	// If this is empty (""), this means you allow all the file types
+            file_filter: "",
+            
+	// Ajax settings
+	// url : the url of the ajax request would send, clearAfterUpload : a boolean setting that for if you want to clear items after the upload process
+            ajax: {
+				url: 'Handler.php',				
+                clearAfterUpload: true
+            },
+			
+	// Watermark settings, if you don't want to watermark images leave it, if you do see watermark settings		
+            watermark: {
+                text: ""
+            },
+			auto_upload:false,
+	// HTML5Error event to handle when the browser doesn't support HTML5 like File API and Drag&Drop features that plugin needs let the user know by this
+	// and will use simple uploading system instead of HTML5 one
+            html5Error:
+                function (uploader) {
+                    uploader.settings.imageHolder.style.display = "none";
+                    uploader.settings.dropPlace.style.display = "none";
+                    var error = document.createElement("p");
+                    error.className = "text-center";
+                    error.appendChild(document.createTextNode("Your browser doesn't support HTML5, we can offer you a new browser from here ! click!"));
+                    uploader.settings.form.appendChild(error);
+                },
+				
+	// Progress event: this one retrieves the progress of each item that is being uploaded to show the progress
+            progress:
+                         function (data) {
+                             var template = document.getElementById(data.template); // to access each individual item, required.
+                             if (template) {
+                                 var progress = document.getElementById("progress_" + data.template); // to access and manipulate the progress of each individual, required.
+ 
+				//from this state you can customize below to fit your needs
+                                 if (progress) {
+                                     progress.innerText = "%" + data.percent;
+                                 }
+                                 else {
+                                     var div = document.createElement("div");
+                                     div.id = "progress_" + data.template;
+                                     div.innerText = "%" + data.percent;
+ 
+                                     template.appendChild(div);
+                                 }
+                             }
+ 
+                         }
+        });
+//----------------------------------------------------------------------------------------------------------------     
+		var d2 = new PureUploader(
+        {
+           name: "d2",
+		   drop: true, // to support drag&drop
+            //form: document.getElementById("dropper"), // the form element's id
+            fileInput: document.getElementById("fileInput1"), // the file type input's id
+            imageHolder: document.getElementById("imageHolder2"), // the div's id for listing of uploading files
+ 
+            dropPlace: document.getElementById("dropPlace2"), // the div's id that images gonna drop onto
+            dragHoverClass: "drop_hover", // when the state of hover of the dropPlace div this class would approved
+ 
+			icon_path: "FileIcons/",
+			icon_default: "FileIcons/_blank.png",
+			
+	// Thumbnail resolutions will being used in listing of uploads and thumbnails that would create if the setting is on
+            image_thumb_width: 64, 
+            image_thumb_height: 64,
+			image_thumb: true,
+ 
+	// File filter that which files do you want to uploaded with this plugin enter these like this png|jpg|rar|doc etc...
+	// If this is empty (""), this means you allow all the file types
+            file_filter: "",
+            
+	// Ajax settings
+	// url : the url of the ajax request would send, clearAfterUpload : a boolean setting that for if you want to clear items after the upload process
+            ajax: {
+				url: 'Handler.php',				
+                clearAfterUpload: true
+            },
+			
+	// Watermark settings, if you don't want to watermark images leave it, if you do see watermark settings		
+            watermark: {
+                text: ""
+            },
+			auto_upload:false,
+	// HTML5Error event to handle when the browser doesn't support HTML5 like File API and Drag&Drop features that plugin needs let the user know by this
+	// and will use simple uploading system instead of HTML5 one
+            html5Error:
+                function (uploader) {
+                    uploader.settings.imageHolder.style.display = "none";
+                    uploader.settings.dropPlace.style.display = "none";
+                    var error = document.createElement("p");
+                    error.className = "text-center";
+                    error.appendChild(document.createTextNode("Your browser doesn't support HTML5, we can offer you a new browser from here ! click!"));
+                    uploader.settings.form.appendChild(error);
+                },
+				
+	// Progress event: this one retrieves the progress of each item that is being uploaded to show the progress
+            progress:
+                         function (data) {
+                             var template = document.getElementById(data.template); // to access each individual item, required.
+                             if (template) {
+                                 var progress = document.getElementById("progress_" + data.template); // to access and manipulate the progress of each individual, required.
+ 
+				//from this state you can customize below to fit your needs
+                                 if (progress) {
+                                     progress.innerText = "%" + data.percent;
+                                 }
+                                 else {
+                                     var div = document.createElement("div");
+                                     div.id = "progress_" + data.template;
+                                     div.innerText = "%" + data.percent;
+ 
+                                     template.appendChild(div);
+                                 }
+                             }
+ 
+                         }
+        });
+
+    </script>
+    

@@ -1,0 +1,746 @@
+﻿<?php
+ /*
+   $user_id=$_COOKIE["userID"];
+//echo "cookie:".$_COOKIE["userID"];
+if($user_id=='')
+echo "<script type=\"text/javascript\">
+alert(\"current log out. Please relogin.\");
+//location.reload();
+</script>";*/
+
+?>
+	<script type="text/javascript">
+        $(document).ready(function () {
+            // prepare the data
+            var data = {};
+			var theme = 'bootstrap';
+			// renderer for grid cells.
+             var numberrenderer = function (row, column, value) {
+                 return '<div style="text-align: center; margin-top: 5px;">' + (1 + value) + '</div>';
+             }
+
+             // create Grid datafields and columns arrays.
+            
+			var cssclass = 'jqx-widget-header';
+                     if (theme != '') cssclass += ' jqx-widget-header-' + theme;
+            
+			var label_generaterow = function (id) {
+                var row = {};
+               // var descriptionindex = Math.floor(Math.random() * firstNames.length);
+                //var lastnameindex = Math.floor(Math.random() * lastNames.length);
+               //alert(id);
+				row["Sponsorid"] =jQuery("#Sponsorid").val();
+				row["cUser_Num"] =jQuery("#cUser_Num").val();
+				row["cUserIDNO"] =jQuery("#cUserIDNO").val();
+				row["cPassword"] =jQuery("#cPassword").val();
+				row["cFistName"] =jQuery("#cFistName").val();
+				row["cLastName"] =jQuery("#cLastName").val();
+				row["cCellNumb"] =jQuery("#cCellNumb").val();
+
+				row["cAddressX"] =jQuery("#cAddressX").val();
+				row["cCityName"] =jQuery("#cCityName").val();
+				row["cProvince"] =jQuery("#cProvince").val();
+				row["cZipsCode"] =jQuery("#cZipsCode").val();
+				row["cCliczoOX"] =jQuery("#cCliczoOX").val();
+				row["nSMS_Numb"] =jQuery("#nSMS_Numb").val();
+				
+				row["n1levelCnt"] =jQuery("#n1levelCnt").val();
+				row["n2levelCnt"] =jQuery("#n2levelCnt").val();
+				row["n3levelCnt"] =jQuery("#n3levelCnt").val();
+				row["nVisitSum"] =jQuery("#nVisitSum").val();				
+				row["cOpenDate"] =jQuery("#cOpenDate").val();
+				row["cCarriers"] =jQuery("#cCarriers").val();
+				
+				row["cPower"] =jQuery("#cPower").val();
+				row["cPhone"] =jQuery("#cPhone").val();
+
+				row["cIPnumber"] =jQuery("#cIPnumber").val();
+				row["nSponsorN"] =jQuery("nSponsorN").val();
+				row["s_name"] =jQuery("s_name").val();
+				row["nOne"] =jQuery("nOne").val();
+				row["nTwo"] =jQuery("nTwo").val();
+				row["nThree"] =jQuery("nThree").val();
+				row["nFour"] =jQuery("nFour").val();
+				row["nFive"] =jQuery("nFive").val();
+				row["nSix"] =jQuery("nSix").val();
+				row["nSeven"] =jQuery("nSeven").val();
+				row["nTotal"] =jQuery("nTotal").val();
+				
+				
+				return row;
+            }
+
+//==============salestax start=================================================
+			            var garment_so_source =
+            {
+                 datatype: "json",
+                 datafields: [
+					 { name: 'Sponsorid', type: 'string'},
+					 { name: 'cUser_Num', type: 'string'},
+					 { name: 'nVisitSum', type: 'number'},
+					 { name: 'n1levelCnt', type: 'number'},
+					 { name: 'n2levelCnt', type: 'number'},	
+					 { name: 'n3levelCnt', type: 'number'},
+					 { name: 'cUserIDNO', type: 'string'},
+					 { name: 'cPassword', type: 'string'},
+					 { name: 'cFistName', type: 'string'},
+					 { name: 'cLastName', type: 'string'},
+					 { name: 'nHire_Sum', type: 'number'},
+					 { name: 'cCellNumb', type: 'string'},
+					 { name: 'cOpenDate', type: 'date'},
+					 { name: 'cAddressX', type: 'string'},
+					 { name: 'cCityName', type: 'string'},
+					 { name: 'cProvince', type: 'string'},
+					 { name: 'cZipsCode', type: 'string'},
+					 { name: 'nSMS_Numb', type: 'number'},
+					{ name: 'cPower', type: 'string'},
+					 { name: 'cPhone', type: 'string'},
+						{ name: 'cIPnumber', type: 'string'},
+					 { name: 'cCarriers', type: 'string'},
+					 { name: 'cCliczoOX', type: 'string'},
+					 { name: 'nSponsorN', type: 'number'},
+					 { name: 's_name', type: 'string'},
+					 { name: 'nOne', type: 'number'},
+					 { name: 'nTwo', type: 'number'},
+					 { name: 'nThree', type: 'number'},
+					 { name: 'nFour', type: 'number'},
+					 { name: 'nFive', type: 'number'},
+					 { name: 'nSix', type: 'number'},
+					 { name: 'nSeven', type: 'number'},
+					 { name: 'nTotal', type: 'number'},
+					 
+                ],
+				id: 'cUser_Num',
+                url: 'garment_so_data.php',    
+				root: 'Rows',
+				cache: false,
+				beforeprocessing: function(data)
+				{		
+					
+					garment_so_source.totalrecords = data[0].TotalRows;
+					//alert(source.totalrecords);
+				},
+
+				
+
+
+				addrow: function (rowid, rowdata, position, commit) {
+               // alert(position);
+					// synchronize with the server - send insert command
+					
+					var data = "insert=true&" + $.param({cUser_Num: rowdata});
+					alert(data);
+					   $.ajax({
+                            dataType: 'json',
+                            url: 'garment_so_data.php',
+                            data: data,
+							cache: false,
+                            success: function (data, status, xhr) {
+							   // insert command is executed.
+								//alert(data);
+								commit(true);
+							},
+							error: function(jqXHR, textStatus, errorThrown)
+							{
+								commit(false);
+							}
+						});							
+			    },
+                deleterow: function (rowid, commit) {
+                    // synchronize with the server - send delete command
+            		   var data = "delete=true&" + $.param({cUser_Num: rowid});
+				       $.ajax({
+                            dataType: 'json',
+                            url: 'garment_so_data.php',
+							cache: false,
+                            data: data,
+                            success: function (data, status, xhr) {
+							   // delete command is executed.
+							   commit(true);
+							},
+							error: function(jqXHR, textStatus, errorThrown)
+							{
+								commit(false);
+							}
+						});							
+			   },	
+                updaterow: function (rowid, rowdata, commit) {
+			       	var data = "update=true&" + $.param(rowdata);
+								$.ajax({
+									dataType: 'json',
+									url: 'garment_so_data.php',
+									data: data,
+									success: function (data, status, xhr) {
+										// update command is executed.
+										commit(true);
+									},
+									error: function(jqXHR, textStatus, errorThrown)
+										{
+											commit(false);
+										}
+								});	
+				   
+				   
+                }
+				
+
+                
+            };
+
+				var cellclass1 = function (row, columnfield, value) {
+					if (value >4) {
+						return 'gray';
+					}
+			    }
+				var cellclass2 = function (row, columnfield, value) {
+					if (value >4) {
+						return 'yellow';
+					}
+			    }
+				var cellclass3 = function (row, columnfield, value) {
+					if (value >4) {
+						return 'green';
+					}
+			    }
+
+			
+
+
+			$("#Sponsorid").jqxInput({ theme: theme });
+            $("#cUser_Num").jqxInput({ theme: theme });
+            $("#cUserIDNO").jqxInput({ theme: theme });
+			$("#cPassword").jqxInput({ theme: theme });
+			$("#cFistName").jqxInput({ theme: theme });
+			$("#cLastName").jqxInput({ theme: theme });
+			$("#cCellNumb").jqxInput({ theme: theme });
+
+
+			$("#cUserIDNO").width(150);
+            $("#cUserIDNO").height(23);
+
+			$("#cPassword").width(150);
+            $("#cPassword").height(23);
+
+			$("#cFistName").width(150);
+            $("#cFistName").height(23);
+
+			$("#cLastName").width(150);
+            $("#cLastName").height(23);
+
+			$("#cCellNumb").width(150);
+            $("#cCellNumb").height(23);
+
+			var garment_so_dataadapter = new $.jqx.dataAdapter(garment_so_source);
+           // initialize jqxGrid
+		   var items = new Array();
+            items.push('O');
+			items.push('X');
+
+
+			var coloritems = new Array();
+            coloritems.push('green');
+			coloritems.push('grey');
+            coloritems.push('yellow');
+			coloritems.push('red');
+
+
+
+			var linkrenderer = function (row, column, value) {
+                /*if (value.indexOf('#') != -1) {
+                    value = value.substring(0, value.indexOf('#'));
+                }*/
+				value="sendmail.php"
+                var format = { target: '' };
+                var html = $.jqx.dataFormat.formatlink(value, format);
+                return html;
+            }
+			
+			$("#garment_so_jqxgrid").jqxGrid(
+            {
+                width: 1600,height:810,
+				//selectionmode: 'singlecell',
+                source: garment_so_dataadapter,
+                theme: theme,
+				ready: function () {
+                   $("#garment_so_jqxgrid").jqxGrid('hidecolumn', 'garment_so_token');
+					
+                },
+				editable: true,
+				autoheight: false,
+				altrows: true,
+				//pageable: true,
+                columnsresize: true,
+                columnsreorder: true,
+				sortable: true,
+				showfilterrow: true,
+				showstatusbar: false,
+                //statusbarheight: 50,
+				 showaggregates: true,
+                filterable: true,
+				showtoolbar: true,
+				scrollmode: 'logical',
+				altrows: true,
+				
+				
+				
+				
+	 
+
+				rendertoolbar: function (toolbar) {
+                    var me = this;
+                    var container = $("<div style='margin: 1px;'></div>");
+                  // var excelExport =$("<div style='margin-left: 10px; float: left;'> <input type='button' value='Export to Excel' id='excelExport' /></div>");
+					var csvExport =$("<div style='margin-left: 10px; float: left;'><input type='button' value='Export to CSV' id='csvExport' /></div>");
+					var Delete =$("<div style='margin-left: 10px; float: left;'><input type='button' value='Delete' id='deleterowbutton' /></div>");
+					
+					toolbar.append(container);
+                   container.append(Delete);
+                    container.append(csvExport);
+					
+					
+                    
+                    
+					//$("#excelExport").jqxButton({ theme: theme });
+					$("#csvExport").jqxButton({ theme: theme });
+					$("#deleterowbutton").jqxButton({ theme: theme });
+				   /*$("#excelExport").click(function () {
+						$("#garment_so_jqxgrid").jqxGrid('exportdata', 'xls', 'jqxGrid');           
+					});*/
+					$("#csvExport").click(function () {
+						$("#garment_so_jqxgrid").jqxGrid('exportdata', 'csv', 'jqxGrid');
+					});
+
+
+					$("#deleterowbutton").bind('click', function () {
+						
+						var selectedrowindex = $("#garment_so_jqxgrid").jqxGrid('getselectedrowindex');
+						var rowscount = $("#garment_so_jqxgrid").jqxGrid('getdatainformation').rowscount;
+						if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+						
+							var id = $("#garment_so_jqxgrid").jqxGrid('getrowid', selectedrowindex);
+						  //alert(id);
+						
+							$("#garment_so_jqxgrid").jqxGrid('deleterow', id);
+						}
+					});
+					
+                },	
+                columns: [
+					  {pinned: true, exportable: false, text: "", columntype: 'number', cellclassname: cssclass, cellsrenderer: numberrenderer },	
+                      { text: 'SponsorID', editable: false, datafield: 'Sponsorid', width: 60,align: 'center' },
+					 { text: 'S Name', editable: false, datafield: 's_name', width: 2,align: 'center' },
+					  /*{ text: 'Status', filtertype: 'list', filteritems: items, datafield: 'open_chk', width: 100,align: 'center',cellsalign: 'center' },*/
+					  { text: 'ID', editable: false, datafield: 'cUser_Num', width: 60,align: 'center' },
+					  { text: 'Visit', editable: false, datafield: 'nVisitSum', width: 50,align: 'center',cellsalign: 'right' },	
+					  { text: '1st', columngroup: 'down', editable: false, cellclassname: cellclass1, datafield: 'n1levelCnt', width: 40,align: 'center' ,cellsalign: 'right'},
+					  { text: '2nd', columngroup: 'down',editable: false, cellclassname: cellclass2, datafield: 'n2levelCnt', width: 40,align: 'center',cellsalign: 'right'},
+					  { text: '3rd', columngroup: 'down',editable: false, cellclassname: cellclass3, datafield: 'n3levelCnt', width: 40,align: 'center' ,cellsalign: 'right'},					  
+					  { text: 'Email', datafield: 'cUserIDNO', width: 160,align: 'center'
+						 /*,cellsformat: 'n2',cellsalign: 'right',aggregates: ['count'], aggregatesrenderer: function (aggregates, column, element, summaryData,record) {
+                          var renderstring = "<div class='jqx-widget-content jqx-widget-content-" + theme + "' style='float: left; width: 100%; height: 100%;'>";
+                          $.each(aggregates, function (key, value) {
+                              var name = key == 'count' ? '' : 'Avg';
+                              var color = '';
+                              renderstring += '<div style="color: ' + color + '; position: relative; margin: 6px; text-align: right; overflow: hidden;">' + name  + value + '<input type="hidden" id="total_qty" value="'+value+'"></div>';
+                          });
+                          renderstring += "</div>";
+                          return renderstring;
+                      }*/
+					  },
+					{ text: 'Password', editable: true, datafield: 'cPassword', width: 100,align: 'center' },
+					{ text: 'First', columngroup: 'name',editable: true, datafield: 'cFistName', width: 100,align: 'center' },
+					{ text: 'Last', columngroup: 'name',editable: true, datafield: 'cLastName', width: 100,align: 'center' },	
+					{ text: '1st',columngroup: 'level', editable: false, datafield: 'nOne', width: 40,align: 'center' ,cellsalign: 'right'},
+                    { text: '2nd',columngroup: 'level', editable: false, datafield: 'nTwo', width: 40,align: 'center' ,cellsalign: 'right'},
+				  { text: '3rd',columngroup: 'level', editable: false, datafield: 'nThree', width: 40,align: 'center' ,cellsalign: 'right'},
+				  { text: '4th',columngroup: 'level', editable: false, datafield: 'nFour', width: 40,align: 'center' ,cellsalign: 'right'},
+				  { text: '5th',columngroup: 'level', editable: false, datafield: 'nFive', width: 40,align: 'center' ,cellsalign: 'right'},
+				  { text: '6th',columngroup: 'level', editable: false, datafield: 'nSix', width: 40,align: 'center' ,cellsalign: 'right'},
+				  { text: '7th',columngroup: 'level', editable: false, datafield: 'nSeven', width: 40,align: 'center' ,cellsalign: 'right'},
+				  { text: 'total',columngroup: 'level', editable: false, datafield: 'nTotal', width: 60,align: 'center' ,cellsalign: 'right'},
+					//{ text: 'N',columngroup: 'status', filtertype: 'list',filteritems: coloritems,editable: false, datafield: 'c1stValue',cellclassname: cellclass, width: 40,align: 'center' },
+					//{ text: 'C',columngroup: 'status', filtertype: 'list',filteritems: coloritems,editable: false, datafield: 'c2ndValue',cellclassname: cellclass1, width: 40,align: 'center' },
+					{ text: 'Cell', editable: true, datafield: 'cCellNumb', width: 100,align: 'center' },
+					{ text: 'Po', columngroup: 'status',editable: true, datafield: 'cPower', width: 40,align: 'center' },
+					{ text: 'Ph', columngroup: 'status',editable: true, datafield: 'cPhone', width: 40,align: 'center' },
+					{ text: 'Carriers', editable: false, datafield: 'cCarriers', width: 120,align: 'center'  },
+					{ text: 'Joindate', editable: false, filtertype:'date',datafield: 'cOpenDate',cellsformat: 'd', width: 80,align: 'center' },
+					//{ text: 'IP', editable: false, datafield: 'cIPnumber', width: 100,align: 'center' },
+					//{ text: 'ClicZo', filtertype: 'list',filteritems: items,editable: true, datafield: 'cCliczoOX', cellsalign: 'center',width: 64,align: 'center',columntype: 'combobox' },
+					{ text: 'Send', columngroup: 'action',datafield: 'Send', width: 40,align: 'center', columntype: 'button', cellsrenderer: function () {
+							 return "Send";
+						  }, buttonclick: function (row) {
+							 // open the popup window when the user clicks a button.
+							 editrow = row;
+								var dataRecord = $("#garment_so_jqxgrid").jqxGrid('getrowdata', editrow);
+							 
+							  location='admin_verify.php?cUser_Num='+dataRecord.cUser_Num;	
+							 
+						 }
+					   },
+					 { text: 'Edit', columngroup: 'action',datafield: 'Edit', width: 40,align: 'center', columntype: 'button', cellsrenderer: function () {
+							 return "Edit";
+						  }, buttonclick: function (row) {
+							 // open the popup window when the user clicks a button.
+							 editrow = row;
+
+							 var offset = $("#garment_so_jqxgrid").offset();
+							 $("#popupWindow").jqxWindow({ position: { x: parseInt(offset.left) + 60, y: parseInt(offset.top) + 60 } });
+
+							 // get the clicked row's data and initialize the input fields.
+							 var dataRecord = $("#garment_so_jqxgrid").jqxGrid('getrowdata', editrow);
+							 
+							 var text = $('#garment_so_jqxgrid').jqxGrid('getcelltext', editrow, "cOpenDate");
+
+							 //alert(text);
+							 $("#Sponsorid").val(dataRecord.Sponsorid);
+							 $("#cUser_Num").val(dataRecord.cUser_Num);
+							 $("#cUserIDNO").val(dataRecord.cUserIDNO);
+							 $("#cPassword").val(dataRecord.cPassword);
+							 $("#cFistName").val(dataRecord.cFistName);
+							 $("#cLastName").val(dataRecord.cLastName);
+							 $("#cCellNumb").val(dataRecord.cCellNumb);
+							  $("#cAddressX").val(dataRecord.cAddressX);
+							   $("#cCityName").val(dataRecord.cCityName);
+							    $("#cProvince").val(dataRecord.cProvince);
+								 $("#cZipsCode").val(dataRecord.cZipsCode);
+								  $("#cCliczoOX").val(dataRecord.cCliczoOX);
+								  $("#nSMS_Numb").val(dataRecord.nSMS_Numb);
+							$("#cCarriers").val(dataRecord.cCarriers);
+								  $("#n1levelCnt").val(dataRecord.n1levelCnt);
+								  $("#n2levelCnt").val(dataRecord.n2levelCnt);
+								 $("#n3levelCnt").val(dataRecord.n3levelCnt);
+								 $("#nVisitSum").val(dataRecord.nVisitSum);
+								  $("#nHire_Sum").val(dataRecord.nHire_Sum);
+								   $("#cPower").val(dataRecord.cPower);
+								    $("#cPhone").val(dataRecord.cPhone);
+									$("#s_name").val(dataRecord.s_name);
+								   $("#nOne").val(dataRecord.nOne);
+								    $("#nTwo").val(dataRecord.nTwo);
+									$("#nThree").val(dataRecord.nThree);
+									$("#nFour").val(dataRecord.nFour);
+									$("#nFive").val(dataRecord.nFive);
+									$("#nSix").val(dataRecord.nSix);
+									$("#nSeven").val(dataRecord.nSeven);
+									$("#nTotal").val(dataRecord.nTotal);
+									 $("#cOpenDate").val(text);
+									  $("#cIPnumber").val(dataRecord.cIPnumber);
+									  $("#nSponsorN").val(dataRecord.nSponsorN);
+									
+								
+							
+							
+							 // show the popup window.
+							 $("#popupWindow").jqxWindow('open');
+							 
+						 }
+					   }   
+                      
+                  ],
+				columngroups:
+				[{ text: 'Rebate123', align: 'center', name: 'down' },{ text: 'Name', align: 'center', name: 'name' },{ text: 'Action', align: 'center', name: 'action' },{ text: 'Status', align: 'center', name: 'status' },{ text: '7Level', align: 'center', name: 'level' }]	
+			  
+            });
+
+			
+           
+            //$("#salestax_deleterowbutton").jqxButton({ theme: theme });
+            /*$("#garment_so_updaterowbutton").jqxButton({ theme: theme });
+
+            // update row.
+			$("#garment_so_updaterowbutton").bind('click', function () {
+				
+				location='?position=garment_sod&garment_so_newcheck=Y';
+					
+            });*/
+
+			var mainDemoContainer = $('#mainDemoContainer');
+            var offset = mainDemoContainer.offset();
+			// initialize the popup window and buttons.
+            $("#popupWindow").jqxWindow({
+                width: 350, resizable: true, theme: theme, isModal: true, autoOpen: false,  modalOpacity: 0.01 ,position: { x: offset.left + 100, y: offset.left + 100 }});
+
+			
+           /* $("#popupWindow").on('open', function () {
+                $("#labelname").jqxInput('selectAll');
+            });*/
+         
+           // $("#labelCancel").jqxButton({ theme: theme });
+            $("#labelSave").jqxButton({ theme: theme });
+
+            // update the edited row when the user clicks the 'Save' button.
+            $("#labelSave").click(function () {
+                
+				if (editrow >= 0) {
+                    /*
+					var row = { labelname: $("#labelname").val(), labelaad1: $("#labelaad1").val(), labelaad2: $("#labelaad2").val(),
+                        labelaad3: $("#labelaad3"), labeltel: $("#labeltel")
+                    };*/
+                    var rowID = $('#garment_so_jqxgrid').jqxGrid('getrowid', editrow);
+					
+					var row = label_generaterow(rowID);
+
+					$('#garment_so_jqxgrid').jqxGrid('updaterow', rowID, row);
+                    $("#popupWindow").jqxWindow('hide');
+                }
+            });
+
+            
+
+            $("#garment_so_jqxgrid").on("sort", function (event) {
+
+                var sortinformation = event.args.sortinformation;
+                var sortdirection = sortinformation.sortdirection.ascending ? "ascending" : "descending";
+                if (!sortinformation.sortdirection.ascending && !sortinformation.sortdirection.descending) {
+                    sortdirection = "null";
+                }
+
+            });
+
+			/*$("#garment_so_jqxgrid").on('cellvaluechanged', function (event) 
+			{
+				
+				
+				
+					// event arguments.
+					var args = event.args;
+
+					
+					// column data field.
+					var datafield = event.args.datafield;
+					//alert(datafield);
+					if (datafield=="cCliczoOX")
+					{
+						if (confirm("Do you want to change Cliczo active?"))
+						{
+
+							// row's bound index.
+							var rowBoundIndex = args.rowindex;
+							var value = args.value;	
+
+							var cUser_Num = $('#garment_so_jqxgrid').jqxGrid('getcellvalue', rowBoundIndex, "cUser_Num");
+							$("#garment_so_jqxgrid").jqxGrid('setcellvalue', rowBoundIndex, "cCliczoOX", value);
+							$('#garment_so_jqxgrid').jqxGrid('addrow', rowBoundIndex, cUser_Num);
+						}
+						else
+							return false;
+
+					
+					}
+				
+
+			});*/
+
+			
+
+			/*
+			$("#garment_so_jqxgrid").on('rowclick', function (event) {
+                //$("#selectrowindex").text(event.args.rowindex);
+				
+				var args = event.args;
+				var row = args.rowindex;
+				var selectedrowindex = row;//$("#garment_so_jqxgrid").jqxGrid('getselectedrowindex');
+          		var rowscount = $("#garment_so_jqxgrid").jqxGrid('getdatainformation').rowscount;
+                ;
+				if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+					
+					//alert(selectedrowindex);
+                    var id = $("#garment_so_jqxgrid").jqxGrid('getrowid', selectedrowindex);
+					
+					//alert(id);
+					// gets all rows loaded from the data source.
+				
+					var garment_so_data = $('#garment_so_jqxgrid').jqxGrid('getrowdatabyid', id);
+					   location='?position=garment_sod&garment_so_seq='+garment_so_data.garment_so_seq+'&garment_so_id='+garment_so_data.garment_so_id+'&garment_so_token='+garment_so_data.garment_so_token;			
+					
+                }
+            });*/
+			 
+//===============================================================
+
+
+		});
+    </script>
+	<style>     
+        .green {
+            color: black\9;
+            background-color: #b6ff00\9;
+        }
+        .yellow {
+            color: black\9;
+            background-color: yellow\9;
+        }
+        .red {
+            color: black\9;
+            background-color: red\9;
+        }
+		.gray {
+            color: black\9;
+            background-color: gray\9;
+        }
+
+        .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+            color: black;
+            background-color: #b6ff00;
+        }
+        .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+            color: black;
+            background-color: yellow;
+        }
+        .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+            color: black;
+            background-color: red;
+        }
+		.gray:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .gray:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+            color: black;
+            background-color: gray;
+        }
+		
+    </style>
+	<div style="margin-left: 20px;">
+	<div style=" width:1400px;margin: 0 auto;">
+	
+		<div >
+			<label style="font-size:20px;">Customer List</label>
+			<span style="float:right;" ><a href="/kadmin/logout.php">Logout</a> </span>
+			<span style="float:right;margin-right:40px;" ><a href="/phpdemo/">Genealogy</a> </span>
+
+		</div>
+		
+		
+		
+	</div>
+	
+	<div id="garment_so_jqxgrid" style="margin: 0 auto;">
+	</div>
+	
+
+	<div id="mainDemoContainer">
+	<div id="popupWindow">
+				<div>Edit</div>
+				<div style="overflow: hidden;">
+					<table>
+						<input type="hidden"  id="c1stValue">
+						<input type="hidden"  id="n1levelCnt">
+						<input type="hidden"  id="n2levelCnt">
+						<input type="hidden"  id="n3levelCnt">
+						<input type="hidden"  id="nVisitSum">
+						<input type="hidden" id="nHire_Sum">
+						<input  type="hidden" id="c2ndValue">
+						<input  type="hidden" id="cOpenDate">
+						<input  type="hidden" id="cIPnumber">
+						<input  type="hidden" id="nSponsorN">
+						<input  type="hidden" id="nOne">
+						<input  type="hidden" id="nTwo">
+						<input  type="hidden" id="nThree">
+						<input  type="hidden" id="nFour">
+						<input  type="hidden" id="nFive">
+						<input  type="hidden" id="nSix">
+						<input  type="hidden" id="nSeven">
+						<input  type="hidden" id="nTotal">
+
+						
+				<input  type="hidden" id="cCarriers">
+						<tr>
+							<td align="right">SponsorID:</td>
+							<td align="left"><input readonly id="Sponsorid" /></td>
+						</tr>
+						<tr>
+							<td align="right">Sponsor Name:</td>
+							<td align="left"><input readonly id="s_name" /></td>
+						</tr>
+						<tr>
+							<td align="right">ID:</td>
+							<td align="left"><input readonly id="cUser_Num" /></td>
+						</tr>
+						<!--<tr>
+							<td align="right">Direct:</td>
+							<td align="left"><input readonly id="nDirectCT" /></td>
+						</tr>
+						<tr>
+							<td align="right">TOTAL:</td>
+							<td align="left"><input readonly id="nEntireCT" /></td>
+						</tr>
+						<tr>
+							<td align="right">Visit:</td>
+							<td align="left"><input readonly id="nVisitSum" /></td>
+						</tr>-->
+						<tr>
+							<td align="right">Email:</td>
+							<td align="left"><input id="cUserIDNO"></div></td>
+						</tr>
+						<tr>
+							<td align="right">Password:</td>
+							<td align="left"><input id="cPassword"></div></td>
+						</tr>
+						
+						<tr>
+							<td align="right">Firstname:</td>
+							<td align="left"><input id="cFistName"></div></td>
+						</tr>
+						<tr>
+							<td align="right">LastName:</td>
+							<td align="left"><input id="cLastName"></div></td>
+						</tr>
+						<!--<tr>
+							<td align="right">Hire:</td>
+							<td align="left"><input readonly id="nHire_Sum"></div></td>
+						</tr>
+						<!--<tr>
+							<td align="right">1st Grade:</td>
+							<td align="left"><input type="hidden"  id="c1stValue"></div></td>
+						</tr>-->
+						
+						<!--<tr>
+							<td align="right">2nd Grade:</td>
+							<td align="left"><input readonly id="c2ndValue"></div></td>
+						</tr>-->
+						<tr>
+							<td align="right">Phone:</td>
+							<td align="left"><input id="cCellNumb"></div></td>
+						</tr>
+						<tr>
+							<td align="right">Power Bill:</td>
+							<td align="left"><input id="cPower"></div></td>
+						</tr>
+						<tr>
+							<td align="right">Phone Bill:</td>
+							<td align="left"><input id="cPhone"></div></td>
+						</tr>
+						<!--<tr>
+							<td align="right">Join Date:</td>
+							<td align="left"><input readonly id="cOpenDate"></div></td>
+						</tr>
+						<tr>
+							<td align="right">IP:</td>
+							<td align="left"><input readonly id="cIPnumber"></div></td>
+						</tr>-->
+						
+						<tr>
+							<td align="right">Address:</td>
+							<td align="left"><input id="cAddressX"></div></td>
+						</tr>
+						<tr>
+							<td align="right">City:</td>
+							<td align="left"><input id="cCityName"></div></td>
+						</tr>
+						<tr>
+							<td align="right">State:</td>
+							<td align="left"><input id="cProvince"></div></td>
+						</tr>
+						<tr>
+							<td align="right">Zipcode:</td>
+							<td align="left"><input id="cZipsCode"></div></td>
+						</tr>
+						<tr>
+							<td align="right">Activity:</td>
+							<td align="left"><input id="cActivity"></div></td>
+						</tr>
+						<tr>
+							<td align="right"></td>
+							<td style="padding-top: 10px;" align="right"><input style="margin-right: 5px;" type="button" id="labelSave" value="Save" /></td>
+						</tr>
+					</table>
+				</div>
+		 </div>	
+	</div>	 
