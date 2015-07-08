@@ -1,0 +1,203 @@
+<?php 
+	require_once("header.php"); 
+
+	$action		= !empty($_POST["action"]);
+	$id_category		= !empty($_REQUEST["id_category"]);
+	$category_name	= !empty($_POST["category_name"]);
+	$position	= !empty($_POST["position"]);
+	
+	$aid	= empty($_GET["aid"])?"":$_GET["aid"];
+	$act	= empty($_GET["act"])?"":$_GET["act"];
+	$btn	= empty($_POST["button"])?"":$_POST["button"];
+?>
+
+
+	<!-- sideMenu -->
+	<div class="path" style='display:none'>
+	About Us</div>
+
+	<div id="bodywrapper">
+    
+    <!-- sideMenu -->
+		<div id="navLeft">
+			<div style="font:bold 16px/1.2 Palatino Linotype;color:#aaa;">gogomarket Events
+			</div>
+			<div id="eventCalendarDefault" class="eventCalendar_wrap">
+				<br/>
+				
+			</div>
+			
+		</div>
+		
+		
+		<!-- content right -->
+		<div id="contwrapper" style="border-left: 1px solid #BBB;">
+			<div id="title">
+				Manage Product Categories
+			</div>
+			<div id="sub1">
+				
+			</div>
+			
+		<div id="sub2">
+
+		<span class="please-wait" id="ajax_load" style="display:none;text-align: center;">
+			<img src="/images/ajax_loader.gif" alt="Loading ..." title="Loading ..." class="v-middle" /> Save category...        
+		</span>
+				<form name="AddForm_Cat1_1" method="post" action="Manage_Categories_action.php">
+				<table >
+					<tr>
+							<td colspan="7" class="subject1_2 , subject_border_top">Category Add</td>
+					</tr>
+					
+							
+							<input type="hidden"  name="id_category" value="<?php echo $data["id_category"];?>"/>
+							<tr class="subject_border_bottom">
+								<td class="general_c" style="width:75%">
+									<input type="text" name="category_name" style="width:50%;"/>
+								</td>
+								<td class="general_c">
+									<input type="submit" name="Submit3" style="padding:1px 50px;"  value="Add">
+									<input type="hidden" name="action" value="add1">
+								</td>
+								<td class="general_c">
+									<select name="id_language" id="id_language">
+									<option value="0">Select</option>
+									<option value="1">English</option>
+									<option value="4">Spanish</option>
+									<option value="7">Korean</option>
+									</select>
+								</td>
+							</tr>
+				</table>
+				</form>
+			</div>
+
+
+
+				
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$( "#sortable1" ).sortable({
+		  update: function( event, ui ) {
+		var frmDatas	= $("#form2").serializeArray();
+		  frmDatas.push({name:"mode", value:"cat"});
+		
+			/*$.each(frmDatas, function(i, field){
+            alert(field.value);
+
+			});*/
+		   $("#ajax_load").css('display','block');
+		   $.ajax({
+						async:false, type:"post", dataType:"json", url:"/lib/ajaxtools.php",
+						data: frmDatas,
+						success: function(d) {
+							location.reload();
+						}
+			});
+			
+		  }
+	});
+
+	
+
+});
+						
+</script>
+
+<?php
+	$DB1 	= new myDB;
+	$strSQL1 = "SELECT * FROM category a,category_language b where a.id_category=b.id_category ORDER BY position ASC";
+	$DB1->query($strSQL1);
+	$Num = 1;
+	echo "<table><tr><td>";
+	echo "<div id=\"sub11\">";
+	echo "<form name=\"form2\" id=\"form2\" method=\"post\">";
+	
+	echo "<ul id=\"sortable1\" style=\"float:left\">";
+	while ($data1 = $DB1->fetch_array($DB1->res)){
+	
+		//echo "<input type=\"hidden\" name=\"sortid[]\" id=\"sortid\" value=\"" . $data["Cat1SortNo"] . "\"/>";
+		
+		//echo "<input type=\"hidden\" name=\"Cat1ID\" value=\"" . $data["Cat1ID"] . "\"/>";
+		echo "<li id=\"i_". $data1["id_category"] ."\" class=\"ui-state-default\" style=\"padding-left: 0.5em;width: 500px;overflow: hidden;\">
+		<span class=\"ui-icon ui-icon-arrowthick-2-n-s\"></span>
+		<table><tr><td style=\"width: 10%;padding-right:10px;\" ></td>
+		<td style=\"width: 5%;padding-right:10px;cursor:move;\">".$data1["position"]."</td>
+		<td style=\"cursor:move;width: 65%;padding-right:10px;\">
+		<input type=\"text\" id=\"id_category_".$data1["id_category"]."\" name=\"id_category\" value=\"" . $data1["category_name"] . "\" style=\"cursor:move;width:250px;height:20px;\"/>
+		<input type=\"hidden\" name=\"sortid[]\" id=\"sortid\" value=\"" . $data1["id_category"] . "\"/></td><td style=\"cursor:move;width: 10%;padding-right:10px;\">
+		<input  name=\"button\" type=\"button\" onClick=\"up_date(".$data1["id_category"].");\" value=\"Update\"/></td>
+		<td style=\"width: 10%; \"><input name=\"button\" type=\"button\" onClick=\"del(".$data1["id_category"].");\" value=\"Delete\"/></td></tr></table></li>";
+		
+		//echo "</ul>";
+		
+		$Num++;
+	}
+	echo "</ul>";
+	
+	echo "</form>";	
+	echo "</div>";
+	echo "</td>";
+?>
+
+
+
+
+<script type="text/javascript">
+function expan(id){
+
+	$.ajax({
+				async:false, type:"post", dataType:"html", url:"/lib/ajaxtools.php",
+				data: {"mode":"2CatUpdate","Cat1ID":id},
+				success: function(d) {
+					//alert(d);
+					$('#sub12').html(d);
+					$('#sub12').css('display','block');
+				}
+			});
+
+
+}
+
+function up_date(id){
+
+var name=$('#id_category_'+id).val();
+//alert(name);
+$("#ajax_load").css('display','block');
+	$.ajax({
+				async:false, type:"post", dataType:"json", url:"/lib/ajaxtools.php",
+				data: {"mode":"CatUpdate","id_category":id,"category_name":name},
+				success: function(d) {
+					//alert(d);
+					location.reload();
+				}
+			});
+
+}
+function del(id){
+//alert(name);	
+	$.ajax({
+				async:false, type:"post", dataType:"json", url:"/lib/ajaxtools.php",
+				data: {"mode":"CatDel","id_category":id},
+				success: function(d) {
+					location.reload();
+				}
+			});
+	
+}
+
+
+
+
+</script>
+
+
+		
+<?php 
+	require_once("footer.php"); 
+	$DB1->close();	//DB close
+?>

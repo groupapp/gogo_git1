@@ -1,0 +1,15 @@
+<form action="bookRoom.php" method="post" id="dateForm">
+     <input type="text" oninput="OnInput (event)"  value="" />
+	<input type="submit">
+   </form>
+
+  <script type="text/javascript">
+	 function OnInput (event) {
+           var x=event.target.value;
+		   if (x.length>0)
+		   {
+				 document.getElementById('dateForm').submit(); // SUBMIT FORM
+		   }
+        }
+   
+</script>

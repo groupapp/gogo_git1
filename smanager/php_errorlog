@@ -1,0 +1,11 @@
+[05-Nov-2014 11:50:39 America/Los_Angeles] PHP Fatal error:  Call to a member function query() on a non-object in /home/egcjc584/public_html/shopadmin/Manage_QuantityDiscounts.php on line 191
+[05-Nov-2014 11:51:35 America/Los_Angeles] PHP Fatal error:  Call to a member function query() on a non-object in /home/egcjc584/public_html/shopadmin/Manage_QuantityDiscounts.php on line 191
+[05-Nov-2014 11:57:59 America/Los_Angeles] PHP Fatal error:  Call to a member function query() on a non-object in /home/egcjc584/public_html/shopadmin/Manage_QuantityDiscounts.php on line 191
+[05-Nov-2014 16:30:57 America/Los_Angeles] PHP Fatal error:  Call to a member function query() on a non-object in /home/egcjc584/public_html/shopadmin/Manage_QuantityDiscounts.php on line 191
+[05-Nov-2014 16:33:03 America/Los_Angeles] PHP Fatal error:  Call to a member function query() on a non-object in /home/egcjc584/public_html/shopadmin/Manage_QuantityDiscounts.php on line 192
+[14-Nov-2014 18:33:31 CST6CDT] PHP Parse error:  syntax error, unexpected ';' in /home/egcjc584/public_html/shopadmin/Manage_Products.php on line 1172
+[23-Nov-2014 01:39:50 CST6CDT] PHP Parse error:  syntax error, unexpected T_STRING in /home/egcjc584/public_html/shopadmin/adminmember_action.php on line 49
+[24-Nov-2014 17:11:42 CST6CDT] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/egcjc584/public_html/shopadmin/Manage_Products.php on line 146
+[24-Nov-2014 19:43:37 CST6CDT] PHP Parse error:  syntax error, unexpected '}' in /home/egcjc584/public_html/shopadmin/Manage_Products.php on line 266
+[24-Nov-2014 22:45:34 CST6CDT] PHP Parse error:  syntax error, unexpected T_CONSTANT_ENCAPSED_STRING, expecting ',' or ';' in /home/egcjc584/public_html/shopadmin/Manage_Products.php on line 1281
+[25-Nov-2014 21:11:18 CST6CDT] PHP Parse error:  syntax error, unexpected ';' in /home/egcjc584/public_html/shopadmin/Manage_Orders_ViewOrderDetails.php on line 565

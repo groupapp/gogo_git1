@@ -1,0 +1,101 @@
+<?php
+	include "../include/function.php";
+	$DB = new myDB;
+	
+	$action		= $_REQUEST["action"];
+	$navleft	= $_REQUEST["nl"];
+	$Banner1	= $_REQUEST["id"];
+	$Banner2	= $_REQUEST["BannerID"];
+	$IsActive	= $_POST["IsActive"];
+	$Name		= $_POST["Name"];
+	$FromDate	= $_POST["FromDate"];
+	$Url		= $_POST["Url"];
+	$BannerImg	= $_FILES["BannerImg"];
+	$DispOrder	= $_POST["display_order"];
+	$BannerType	= $_POST["banner_type"];
+	$text1		= $_POST["text1"];
+	$text2		= $_POST["text2"];
+	
+	$ToDate		= $_POST["ToDate"];
+	$button		= $_POST["button"];
+	$view		= $_POST["view"];
+
+//echo $BannerImg;
+//exit;	
+	if($FromDate!='')
+		$fr_date=date('Y-m-d',strtotime($FromDate));
+	if($ToDate!='')
+		$to_date=date('Y-m-d',strtotime($ToDate));
+
+
+	
+	if($action == "del"){
+		$strSQL = ("DELETE FROM Banner Where BannerID=".$Banner1);		
+		$DB->query($strSQL);
+	}
+	elseif($action == "add"){
+		$Obj = new myUpload();
+			$Obj->setBaseDir("/images/banner/");
+			$Obj->upload($BannerImg);
+		
+		$strSQL = ("INSERT INTO Banner (IsActive, Name,BannerImg,Url,FromDate,ToDate,BannerType,DisplayOrder,Text1,Text2)
+					VALUES(
+						\"".$IsActive."\",
+						\"".$Name."\",
+						\"".$Obj->uploadfile."\",
+						\"".$Url."\",
+						\"".$fr_date."\",
+						\"".$to_date."\",
+						\"".$BannerType."\",
+						\"".$DispOrder."\",
+						\"".$text1."\",
+						\"".$text1."\"
+					)");
+
+		$DB->query($strSQL);
+	}
+	elseif ($action == "update"){
+		
+		
+		if ($BannerImg['size']>0)
+		{
+			$Obj = new myUpload();
+			$Obj->setBaseDir("/images/banner/");
+			$Obj->upload($BannerImg);
+			
+		$strSQL = ("UPDATE Banner SET
+						IsActive		= \"".$IsActive."\",
+						Name			= \"".$Name."\",
+						BannerType		= \"".$BannerType."\",
+						BannerImg		= \"".$Obj->uploadfile."\",
+						DisplayOrder	= \"".$DispOrder."\",
+						Text1			= \"".$text1."\",
+						Text2			= \"".$text2."\",
+						Url				= \"".$Url."\",
+						FromDate		= \"".$fr_date."\",
+						ToDate			= \"".$to_date."\",
+						DateTimeLastModified = now()
+						WHERE BannerID=".$Banner2);
+		}
+		else
+		{
+			$strSQL = ("UPDATE Banner SET
+						IsActive		= \"".$IsActive."\",
+						Name			= \"".$Name."\",
+						BannerType		= \"".$BannerType."\",
+						DisplayOrder	= \"".$DispOrder."\",
+						Text1			= \"".$text1."\",
+						Text2			= \"".$text2."\",
+						Url				= \"".$Url."\",
+						FromDate		= \"".$fr_date."\",
+						ToDate			= \"".$to_date."\",
+						DateTimeLastModified = now()
+						WHERE BannerID=".$Banner2);
+		}
+		$DB->query($strSQL);
+	}
+	
+	
+	$DB->close();
+	echo "<script>location.replace('Manage_Banner.php?nl=".$navleft."&act=".$view."&aid=".$Banner2."');</script>";
+?>

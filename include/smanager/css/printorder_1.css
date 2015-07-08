@@ -1,0 +1,158 @@
+*       { margin: 0; padding:0; font-size: 12px; }
+body    { font-family: Tahoma; font-size: 11px; min-width: 980px; }
+h2      { color: maroon }
+h3,h4   { color: gray }
+table   { border-collapse: collapse; }
+input   { font: normal 11px/1.5 Verdana, Helvetica, sans-serif; }
+button { border: none; }
+input[type='button'],
+input[type='submit'],
+input[type='reset'] {
+	background: #F89808;
+	border: 0;
+	font: normal 12px/26px Arial, Helvetica, sans-serif;
+	color: white;
+	text-transform: uppercase;
+	text-align: center;
+	white-space: nowrap;
+	overflow: visible;
+	cursor: pointer;
+	padding: 0 20px;
+	margin: 0;
+	height: 26px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-webkit-background-clip: padding-box;
+}
+input[type='button']:hover,
+input[type='submit']:hover,
+input[type='reset']:hover {
+	background: #383838;
+}
+input[type='radio'] { margin: 3px 10px 0 0; }
+input[type='text'] { border: solid #C8EEFF 1px; padding: 2px } 
+input[type='file']  { height: 16px;}
+select { height: 22px }
+textarea { padding: 2px; border: 1px solid #C8EEFF;}
+
+#sub1{
+	padding: 10px;
+}
+	
+a{text-decoration: none;}
+.subject{
+	padding: 5px 5px 5px 10px;
+	font: bold 11px/1.5 Verdana, Helvetica;
+    color: #fff;
+    background-color: #777;
+    text-align: left;
+}
+
+.subject_border_top{
+	border-top:2px solid #BBB;
+}
+
+.subject_border_bottom{
+	border-bottom:2px solid #BBB;
+}
+
+.thin_border_top{
+	border-top:1px solid #ccc;
+}
+
+.thin_border_bottom{
+	border-bottom:1px solid #eee;
+}
+
+.thin_border_right{
+	border-right:1px solid #eee;
+}
+
+.subject1_2{
+	padding: 5px 5px 5px 10px;
+	text-align: center;
+	font: bold 11px/1.5 Verdana, Helvetica;
+    color: #fff;
+    background-color: #777;
+}
+
+#sub1 table{
+	width: 100%;
+	font-family: Tahoma;
+}
+
+.subject2{
+	padding: 5px 5px 5px 10px;
+	background-color: #ddd;
+	text-align: left;
+}
+
+.subject2_2{
+	padding: 2px;
+	width: 60px;
+	background-color: #ddd;
+	text-align: left;
+}
+
+.subject2_c{
+	padding: 5px 8px 5px 10px;
+	background-color: #ddd;
+	text-align: center;
+}
+
+.general{
+	padding: 5px 5px 5px 10px;
+}
+
+.general_c{
+	padding: 5px 5px 5px 10px;
+	text-align: center;
+}
+
+.general_2{
+	padding: 2px;
+	width: 60px;
+	text-align: center;
+}
+
+.box{
+	width: 40px;
+}
+.bigCel{
+	padding: 1px;
+	text-align: center;
+	overflow: hidden;
+}
+
+.item_wrapper{
+	float: left;
+	width: 200px;
+	display: inline-block;
+	margin: 4px;
+	border: 1px solid #DDD;
+}
+
+.item_wrapper table{
+	width: 195px;
+	height: 290px;
+}
+
+.product_options{
+	float: left;
+	margin-right: 30px;
+	text-align: center;
+}
+
+.product_options dt{
+	font-weight: bold;
+	font-style: italic;
+}
+
+.product_options span{
+	color: #EF0000;
+}
+
+.item-options dd{
+	padding-left: 10px;
+}
